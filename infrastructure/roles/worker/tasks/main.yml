@@ -1,0 +1,6 @@
+---
+- name: Install K3S
+  shell: curl -sfL https://get.k3s.io | K3S_URL={{ lookup('env','K3S_URL') }} K3S_TOKEN={{ lookup('env','K3S_TOKEN') }} sh -
+  args:
+    warn: false
+    creates: /etc/rancher/node/password

@@ -1,0 +1,10 @@
+[master]
+000f00cfcd06.local
+
+[workers]
+000f00de1152.local
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_user=pi
+ansible_sudo_pass=raspberry

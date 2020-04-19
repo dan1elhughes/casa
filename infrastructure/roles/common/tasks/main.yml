@@ -1,0 +1,62 @@
+---
+- name: Add pi user to the sudoers
+  copy:
+    dest: "/etc/sudoers.d/pi"
+    content: "pi ALL=(ALL) NOPASSWD: ALL"
+    mode: 0440
+
+- name: Disable password-only SSH
+  notify:
+    - restart ssh
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
+    backup: yes
+
+- name: Disable root SSH
+  notify:
+    - restart ssh
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+    state: present
+
+- name: Configure daily reboot
+  cron:
+    name: "regular_reboot"
+    cron_file: "regular_reboot"
+    minute: "0"
+    hour: "2"
+    user: root
+    job: "/sbin/reboot >/dev/null 2>&1"
+
+- name: Disable MOTD
+  file:
+    path: /etc/motd
+    state: absent
+
+- name: Disable power LED
+  notify:
+    - reboot
+  blockinfile:
+    path: /boot/config.txt
+    block: |
+      # Disable power LED.
+      # dtparam=act_led_trigger=none
+      # dtparam=act_led_activelow=on
+
+- name: Create update script
+  template:
+    src: "../templates/update.sh"
+    dest: "/home/pi/update.sh"
+    mode: 0764
+    owner: "pi"
+    group: "pi"
+
+- name: Configure apt mirror
+  template:
+    src: "../templates/sources.list"
+    dest: "/etc/apt/sources.list"

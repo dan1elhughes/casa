@@ -29,25 +29,6 @@ def stopManager():
 atexit.register(stopManager)
 
 
-def to_dict(plug):
-    res = {}
-    res['uuid'] = plug.uuid
-    res['name'] = plug.name
-    res['type'] = plug.type
-    res['fwversion'] = plug.fwversion
-    res['hwversion'] = plug.hwversion
-    res['online'] = plug.online
-    res['channels'] = []
-
-    channels = plug.get_channels()
-    print(len(channels))
-
-    # for i in range(0, len(plug.get_channels())):
-    #     res['channels'][i] = plug.get_channel_status(i)
-
-    return res
-
-
 @app.route('/')
 @app.route('/index')
 def index():

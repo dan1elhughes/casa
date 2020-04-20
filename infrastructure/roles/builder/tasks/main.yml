@@ -1,0 +1,14 @@
+---
+- name: Install Docker
+  shell: curl -sSL https://get.docker.com | sh
+  args:
+    warn: false
+    creates: /usr/bin/docker
+
+- name: Add user to docker group
+  notify:
+    - reboot
+  user:
+    name: pi
+    groups: docker
+    append: yes

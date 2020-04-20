@@ -1,3 +1,4 @@
 ---
 - import_playbook: playbook_common.yml
 - import_playbook: playbook_workers.yml
+- import_playbook: playbook_builders.yml

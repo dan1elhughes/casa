@@ -1,1 +1,3 @@
 /.kube
+secrets.yml
+img.tar

@@ -3,6 +3,12 @@
 
 [workers]
 000f00de1152.local
+000f02365bce.local
+
+[builders]
+000f00cfcd06.local
+000f00de1152.local
+000f02365bce.local
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3

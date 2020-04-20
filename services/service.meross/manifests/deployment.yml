@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-meross
+  labels:
+    app: app-meross
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-meross
+  template:
+    metadata:
+      labels:
+        app: app-meross
+    spec:
+      containers:
+        - name: container-meross
+          image: dan1elhughes/casa-s-meross:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-meross
+                  key: email
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-meross
+                  key: password

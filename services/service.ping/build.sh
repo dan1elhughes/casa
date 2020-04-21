@@ -1,1 +1,1 @@
-../../build-utils/builders/build-node.sh
+../../build-utils/builders/build.sh

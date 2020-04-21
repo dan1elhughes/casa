@@ -16,4 +16,3 @@ ssh pi@$builder "docker save dan1elhughes/casa-$svcimage:latest" | pv > img.tar
 
 docker load < img.tar
 docker push dan1elhughes/casa-$svcimage:latest
-

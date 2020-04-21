@@ -20,7 +20,7 @@ spec:
           image: dan1elhughes/casa-s-meross:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 5000
           env:
             - name: EMAIL
               valueFrom:

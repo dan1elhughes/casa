@@ -7,6 +7,7 @@ metadata:
     app: app-meross
 spec:
   replicas: 3
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: app-meross

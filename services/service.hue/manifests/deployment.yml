@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-ping
+  labels:
+    app: app-ping
+spec:
+  replicas: 3
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: app-ping
+  template:
+    metadata:
+      labels:
+        app: app-ping
+    spec:
+      containers:
+        - name: container-ping
+          image: dan1elhughes/casa-s-ping:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000

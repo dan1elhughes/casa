@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-ifttt
+  labels:
+    app: app-ifttt
+spec:
+  replicas: 3
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: app-ifttt
+  template:
+    metadata:
+      labels:
+        app: app-ifttt
+    spec:
+      containers:
+        - name: container-ifttt
+          image: dan1elhughes/casa-s-ifttt:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+          env:
+            - name: IFTTT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-ifttt
+                  key: ifttt_key

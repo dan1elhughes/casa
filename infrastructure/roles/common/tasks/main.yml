@@ -38,6 +38,7 @@
     cron_file: "regular_reboot"
     minute: "0"
     hour: "2"
+    weekday: "5"
     user: root
     job: "/sbin/reboot >/dev/null 2>&1"
 

@@ -2,23 +2,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-ping
+  name: deployment-hue
   labels:
-    app: app-ping
+    app: app-hue
 spec:
   replicas: 3
   revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app: app-ping
+      app: app-hue
   template:
     metadata:
       labels:
-        app: app-ping
+        app: app-hue
     spec:
       containers:
-        - name: container-ping
-          image: dan1elhughes/casa-s-ping:latest
+        - name: container-hue
+          image: dan1elhughes/casa-s-hue:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000

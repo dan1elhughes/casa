@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-ping
+  name: service-hue
   namespace: default
 spec:
   type: LoadBalancer
@@ -9,4 +9,4 @@ spec:
     - name: http
       port: 3000
   selector:
-    app: app-ping
+    app: app-hue

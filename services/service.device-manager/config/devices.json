@@ -1,0 +1,16 @@
+{
+  "living-room-lamp": {
+    "name": "Living room lamp",
+    "controller": "hue",
+    "params": {
+      "id": "2"
+    }
+  },
+  "living-room-shelf": {
+    "name": "Living room shelf",
+    "controller": "meross",
+    "params": {
+      "id": "living_room_shelf"
+    }
+  }
+}

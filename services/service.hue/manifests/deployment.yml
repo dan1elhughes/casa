@@ -7,7 +7,7 @@ metadata:
     app: app-hue
 spec:
   replicas: 3
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: app-hue

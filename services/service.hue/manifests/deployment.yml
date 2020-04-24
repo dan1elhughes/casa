@@ -22,3 +22,19 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
+          env:
+            - name: HUE_IP
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-hue
+                  key: hue_ip
+            - name: HUE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-hue
+                  key: hue_user
+            - name: HUE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-hue
+                  key: hue_key

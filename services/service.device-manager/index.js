@@ -1,4 +1,7 @@
+const assert = require("assert");
 process.env.NODE_ENV === "development" && require("dotenv").config();
+assert(process.env.SERVICE_HUE_URL);
+assert(process.env.SERVICE_IFTTT_URL);
 
 const { send } = require("micro");
 const { router, get, put } = require("microrouter");

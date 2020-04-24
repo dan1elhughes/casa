@@ -1,0 +1,28 @@
+{
+  "name": "casa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently -k \"npm:s-*\"",
+    "logs": "kail",
+    "proxy": "kubectl port-forward service/service-device-manager 3000",
+    "s-device-manager": "npm --prefix services/service.device-manager run dev",
+    "s-hue": "npm --prefix services/service.hue run dev",
+    "s-ifttt": "npm --prefix services/service.ifttt run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dan1elhughes/casa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dan1elhughes/casa/issues"
+  },
+  "homepage": "https://github.com/dan1elhughes/casa#readme",
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  }
+}

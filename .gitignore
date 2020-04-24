@@ -1,3 +1,4 @@
 /.kube
 secrets.yml
 img.tar
+node_modules

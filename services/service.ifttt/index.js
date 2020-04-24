@@ -1,4 +1,7 @@
+const assert = require("assert");
 process.env.NODE_ENV === "development" && require("dotenv").config();
+assert(process.env.IFTTT_KEY);
+
 require("isomorphic-fetch");
 
 const { send } = require("micro");

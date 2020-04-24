@@ -1,4 +1,8 @@
+const assert = require("assert");
 process.env.NODE_ENV === "development" && require("dotenv").config();
+assert(process.env.HUE_IP);
+assert(process.env.HUE_USER);
+assert(process.env.HUE_KEY);
 
 const getApi = require("./api");
 

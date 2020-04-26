@@ -7,6 +7,7 @@
     "dev": "concurrently -k \"npm:s-*\"",
     "logs": "kail",
     "proxy": "kubectl port-forward service/service-device-manager 3000",
+    "update-builders": "node build-utils/update-builders.js",
     "s-device-manager": "npm --prefix services/service.device-manager run dev",
     "s-hue": "npm --prefix services/service.hue run dev",
     "s-ifttt": "npm --prefix services/service.ifttt run dev",
@@ -25,5 +26,8 @@
   "homepage": "https://github.com/dan1elhughes/casa#readme",
   "devDependencies": {
     "concurrently": "^5.1.0"
+  },
+  "dependencies": {
+    "ini": "^1.3.5"
   }
 }

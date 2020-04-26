@@ -1,4 +1,9 @@
 ---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400 # Cache is valid for 24 hours
+
 - name: Install Docker
   shell: curl -sSL https://get.docker.com | sh
   args:
@@ -12,3 +17,18 @@
     name: pi
     groups: docker
     append: yes
+
+- name: Install pip3
+  apt:
+    name: python3-pip
+    state: present
+
+- name: Install Docker python library
+  pip:
+    name: docker
+
+- name: Login Pi user to Docker Hub
+  become: false
+  docker_login:
+    username: "{{ docker_username }}"
+    password: "{{ docker_password }}"

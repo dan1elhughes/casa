@@ -1,3 +1,5 @@
+build-utils/builders/builders
+**/vars/main.yml
 /.kube
 secrets.yml
 img.tar

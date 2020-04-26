@@ -7,12 +7,16 @@ svcimage=$(echo `basename $svcdir` | sed 's/service\./s-/g')
 
 unset SSH_AUTH_SOCK
 
-builder="000f02365bce.local"
+builder=$(sort -R ../../build-utils/builders/builders | head -n 1)
+echo "Selected builder: $builder"
 
-rsync -azvhP --copy-links --delete $svcdir/ pi@$builder:.workspace/
+ssh pi@$builder "mkdir -p .workspace/$svcimage"
 
-ssh pi@$builder "docker build -t dan1elhughes/casa-$svcimage:latest .workspace/"
-ssh pi@$builder "docker save dan1elhughes/casa-$svcimage:latest" | pv > img.tar
+echo "Sending service files..."
+rsync -azqhP --copy-links --delete $svcdir/ pi@$builder:.workspace/$svcimage
 
-docker load < img.tar
-docker push dan1elhughes/casa-$svcimage:latest
+echo "Building image..."
+ssh pi@$builder "docker build --quiet -t dan1elhughes/casa-$svcimage:latest .workspace/$svcimage"
+
+echo "Pushing image..."
+ssh pi@$builder "docker push dan1elhughes/casa-$svcimage:latest"

@@ -1,0 +1,35 @@
+---
+- name: Add Telegraf signing key
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+    state: present
+
+- name: Add Telegraf repository
+  apt_repository:
+    repo: deb https://repos.influxdata.com/debian buster stable
+    state: present
+    filename: telegraf
+
+- name: Install Telegraf
+  apt:
+    name: telegraf
+    state: present
+
+- name: Configure Telegraf
+  register: telegrafconf
+  template:
+    src: "../templates/telegraf.conf"
+    dest: "/etc/telegraf/telegraf.conf"
+
+- name: Add telegraf user to video group (GPU metrics permission)
+  register: telegrafperms
+  user:
+    name: telegraf
+    groups: video
+    append: yes
+
+- name: Restart Telegraf
+  when: telegrafconf.changed or telegrafperms.changed
+  systemd:
+    name: telegraf
+    state: restarted

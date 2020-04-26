@@ -25,5 +25,7 @@ spec:
           env:
             - name: SERVICE_HUE_URL
               value: "http://service-hue.default.svc.cluster.local:3000"
+            - name: SERVICE_REDIS_URL
+              value: "http://service-redis.default.svc.cluster.local:3000"
             - name: SERVICE_IFTTT_URL
               value: "http://service-ifttt.default.svc.cluster.local:3000"

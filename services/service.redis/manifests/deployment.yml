@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-redis
+  labels:
+    app: app-redis
+spec:
+  replicas: 3
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: app-redis
+  template:
+    metadata:
+      labels:
+        app: app-redis
+    spec:
+      containers:
+        - name: container-redis
+          image: dan1elhughes/casa-s-redis:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-redis
+                  key: redis_url

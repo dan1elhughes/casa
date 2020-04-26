@@ -6,7 +6,7 @@ metadata:
   labels:
     app: app-ifttt
 spec:
-  replicas: 3
+  replicas: 2
   revisionHistoryLimit: 1
   selector:
     matchLabels:

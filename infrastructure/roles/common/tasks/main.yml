@@ -32,16 +32,6 @@
     line: "static domain_name_servers=1.1.1.1 1.0.0.1"
     state: present
 
-- name: Configure daily reboot
-  cron:
-    name: "regular_reboot"
-    cron_file: "regular_reboot"
-    minute: "0"
-    hour: "2"
-    weekday: "5"
-    user: root
-    job: "/sbin/reboot >/dev/null 2>&1"
-
 - name: Disable MOTD
   file:
     path: /etc/motd

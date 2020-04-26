@@ -1,0 +1,21 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-store-device-states
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: store-device-states
+              image: buildpack-deps:curl
+              args:
+                - /bin/sh
+                - -ec
+                - curl -X PUT http://service-device-manager.default.svc.cluster.local:3000/store-device-states
+          restartPolicy: Never

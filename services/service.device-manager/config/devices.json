@@ -6,6 +6,20 @@
       "id": "2"
     }
   },
+  "bed-lamp": {
+    "name": "Bed lamp",
+    "controller": "hue",
+    "params": {
+      "id": "1"
+    }
+  },
+  "desk-lamp": {
+    "name": "Desk lamp",
+    "controller": "hue",
+    "params": {
+      "id": "3"
+    }
+  },
   "living-room-shelf": {
     "name": "Living room shelf",
     "controller": "meross",

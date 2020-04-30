@@ -32,3 +32,5 @@ spec:
                 secretKeyRef:
                   name: secrets-redis
                   key: redis_url
+            - name: SERVICE_DEVICE_MANAGER_URL
+              value: "http://service-device-manager.default.svc.cluster.local:3000"

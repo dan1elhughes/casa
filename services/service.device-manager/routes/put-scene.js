@@ -9,7 +9,7 @@ const { send, json } = require("micro");
 module.exports = async (req, res) => {
   const { id } = req.params;
   const scene = confScenes[id];
-  if (!scene) send(res, 404);
+  if (!scene) return send(res, 404);
 
   const { groups, devices, states } = scene;
 

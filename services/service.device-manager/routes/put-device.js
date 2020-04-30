@@ -7,7 +7,7 @@ const { send, json } = require("micro");
 module.exports = async (req, res) => {
   const { id } = req.params;
   const device = devices[id];
-  if (!device) send(res, 404);
+  if (!device) return send(res, 404);
 
   const { state } = await json(req);
 

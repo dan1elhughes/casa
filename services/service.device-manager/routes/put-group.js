@@ -8,7 +8,7 @@ const { send, json } = require("micro");
 module.exports = async (req, res) => {
   const { id } = req.params;
   const group = groups[id];
-  if (!group) send(res, 404);
+  if (!group) return send(res, 404);
 
   const { state } = await json(req);
 

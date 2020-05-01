@@ -27,7 +27,7 @@
   "morning": {
     "name": "Morning",
     "triggers": ["08:00"],
-    "groups": { "living-room": "warm", "bedroom": "warm" },
+    "groups": { "bedroom": "warm" },
     "states": {
       "warm": {
         "on": true,

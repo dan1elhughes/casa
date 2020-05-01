@@ -1,0 +1,20 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-evaluate-scene-triggers
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: evaluate-scene-triggers
+              image: buildpack-deps:curl
+              args:
+                - /bin/sh
+                - -ec
+                - curl -X PUT http://service-device-manager.default.svc.cluster.local:3000/evaluate-scene-triggers
+          restartPolicy: Never

@@ -16,5 +16,5 @@ spec:
               args:
                 - /bin/sh
                 - -ec
-                - curl -X PUT http://service-device-manager.default.svc.cluster.local:3000/evaluate-scene-triggers
+                - curl --fail -X PUT http://service-device-manager.default.svc.cluster.local:3000/evaluate-scene-triggers
           restartPolicy: Never

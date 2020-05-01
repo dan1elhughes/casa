@@ -16,6 +16,7 @@ const putGroup = require("./routes/put-group");
 const putScene = require("./routes/put-scene");
 const putEvent = require("./routes/put-event");
 const putStoreDeviceStates = require("./routes/put-store-device-states");
+const putEvaluateSceneTriggers = require("./routes/put-evaluate-scene-triggers");
 
 module.exports = router(
   get("/devices", getDevices),
@@ -26,6 +27,7 @@ module.exports = router(
   put("/event", putEvent),
   get("/healthz", getHealthz),
   put("/store-device-states", putStoreDeviceStates),
+  put("/evaluate-scene-triggers", putEvaluateSceneTriggers),
   get("/*", (req, res) => send(res, 404)),
   put("/*", (req, res) => send(res, 404))
 );

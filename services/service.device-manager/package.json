@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "date-fns": "^2.12.0",
     "got": "^11.0.2",
     "micro": "^9.3.4",
     "microrouter": "^3.1.3"

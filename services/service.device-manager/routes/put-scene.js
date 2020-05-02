@@ -1,3 +1,6 @@
+const got = require("got");
+const { SERVICE_SLACK_URL } = process.env;
+
 const confGroups = require("../config/groups.json");
 const confDevices = require("../config/devices.json");
 const confScenes = require("../config/scenes.json");
@@ -36,6 +39,11 @@ module.exports = async (req, res) => {
       return controllers[device.controller].write(device, state);
     })
   );
+
+  // Not awaiting this as it's fine to happen after returning.
+  got.post(`${SERVICE_SLACK_URL}/post-message`, {
+    json: { text: `Activated scene: ${scene.name}` },
+  });
 
   return { ok: true };
 };

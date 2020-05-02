@@ -4,6 +4,7 @@ assert(process.env.SERVICE_DEVICE_MANAGER_URL);
 assert(process.env.SERVICE_HUE_URL);
 assert(process.env.SERVICE_IFTTT_URL);
 assert(process.env.SERVICE_REDIS_URL);
+assert(process.env.SERVICE_SLACK_URL);
 
 const { send } = require("micro");
 const { router, get, put } = require("microrouter");

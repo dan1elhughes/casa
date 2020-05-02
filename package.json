@@ -11,7 +11,8 @@
     "s-device-manager": "npm --prefix services/service.device-manager run dev",
     "s-hue": "npm --prefix services/service.hue run dev",
     "s-ifttt": "npm --prefix services/service.ifttt run dev",
-    "s-redis": "npm --prefix services/service.redis run dev"
+    "s-redis": "npm --prefix services/service.redis run dev",
+    "s-slack": "npm --prefix services/service.slack run dev"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-slack
+  labels:
+    app: app-slack
+spec:
+  replicas: 2
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: app-slack
+  template:
+    metadata:
+      labels:
+        app: app-slack
+    spec:
+      containers:
+        - name: container-slack
+          image: dan1elhughes/casa-s-slack:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+          env:
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-slack
+                  key: slack_webhook_url

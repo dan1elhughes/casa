@@ -20,14 +20,16 @@ const getSunset = async () => {
 const shouldTriggerSunset = async () => {
   const sunset = await getSunset();
   return (
-    differenceInSeconds(new Date(), sunset) <= TIME_MATCH_TOLERANCE_SECONDS
+    Math.abs(differenceInSeconds(new Date(), sunset)) <=
+    TIME_MATCH_TOLERANCE_SECONDS
   );
 };
 
 const shouldTriggerTime = async (triggerTime) => {
   const trigger = parse(triggerTime, "HH:mm", new Date());
   return (
-    differenceInSeconds(new Date(), trigger) <= TIME_MATCH_TOLERANCE_SECONDS
+    Math.abs(differenceInSeconds(new Date(), trigger)) <=
+    TIME_MATCH_TOLERANCE_SECONDS
   );
 };
 

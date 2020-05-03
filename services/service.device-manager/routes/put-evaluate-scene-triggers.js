@@ -1,4 +1,4 @@
-const { parse, isAfter, differenceInSeconds } = require("date-fns");
+const { parse, subMinutes, isAfter, differenceInSeconds } = require("date-fns");
 
 const got = require("got");
 const { SERVICE_DEVICE_MANAGER_URL } = process.env;
@@ -26,7 +26,12 @@ const shouldTriggerSunset = async () => {
 };
 
 const shouldTriggerTime = async (triggerTime) => {
-  const trigger = parse(triggerTime, "HH:mm", new Date());
+  // Cancel out that parse converts to UTC - I'm defining
+  // the scene triggers in local time.
+  const timezoneOffset = new Date().getTimezoneOffset();
+  const rawTrigger = parse(triggerTime, "HH:mm", new Date());
+  const trigger = subMinutes(rawTrigger, timezoneOffset);
+
   return (
     Math.abs(differenceInSeconds(new Date(), trigger)) <=
     TIME_MATCH_TOLERANCE_SECONDS

@@ -26,9 +26,10 @@ spec:
             httpGet:
               path: /healthz
               port: 3000
-          env:
-            - name: SLACK_WEBHOOK_URL
-              valueFrom:
-                secretKeyRef:
-                  name: secrets-slack
-                  key: slack_webhook_url
+          envFrom:
+            - configMapRef:
+                name: config-node-env
+            - secretRef:
+                name: secrets-slack
+            - secretRef:
+                name: secrets-loggly

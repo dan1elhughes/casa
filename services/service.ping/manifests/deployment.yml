@@ -26,3 +26,8 @@ spec:
             httpGet:
               path: /healthz
               port: 3000
+          envFrom:
+            - configMapRef:
+                name: config-node-env
+            - secretRef:
+                name: secrets-loggly

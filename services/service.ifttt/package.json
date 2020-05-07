@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@dan1elhughes/micro-loggly": "^1.0.1",
     "isomorphic-fetch": "^2.2.1",
     "micro": "^9.3.4",
     "microrouter": "^3.1.3"

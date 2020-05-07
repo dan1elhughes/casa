@@ -26,19 +26,10 @@ spec:
             httpGet:
               path: /healthz
               port: 3000
-          env:
-            - name: HUE_IP
-              valueFrom:
-                secretKeyRef:
-                  name: secrets-hue
-                  key: hue_ip
-            - name: HUE_USER
-              valueFrom:
-                secretKeyRef:
-                  name: secrets-hue
-                  key: hue_user
-            - name: HUE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: secrets-hue
-                  key: hue_key
+          envFrom:
+            - configMapRef:
+                name: config-node-env
+            - secretRef:
+                name: secrets-loggly
+            - secretRef:
+                name: secrets-hue

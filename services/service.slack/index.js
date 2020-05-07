@@ -5,7 +5,7 @@ assert(process.env.SLACK_WEBHOOK_URL);
 const {
   logger,
   withRequestLogger,
-} = require("@dan1elhughes/logging").configure(process.env);
+} = require("@dan1elhughes/micro-loggly").configure(process.env);
 
 const { send } = require("micro");
 const { router, get, post } = require("microrouter");

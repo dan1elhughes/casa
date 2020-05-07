@@ -5,7 +5,7 @@ assert(process.env.IFTTT_KEY);
 const {
   logger,
   withRequestLogger,
-} = require("@dan1elhughes/logging").configure(process.env);
+} = require("@dan1elhughes/micro-loggly").configure(process.env);
 
 require("isomorphic-fetch");
 

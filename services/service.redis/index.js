@@ -6,7 +6,7 @@ assert(process.env.SERVICE_DEVICE_MANAGER_URL);
 const {
   logger,
   withRequestLogger,
-} = require("@dan1elhughes/logging").configure(process.env);
+} = require("@dan1elhughes/micro-loggly").configure(process.env);
 
 const rsmq = require("./queue/rsmq");
 rsmq.configure(process.env.REDIS_URL);

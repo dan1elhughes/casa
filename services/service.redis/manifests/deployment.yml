@@ -26,11 +26,12 @@ spec:
             httpGet:
               path: /healthz
               port: 3000
-          env:
-            - name: REDIS_URL
-              valueFrom:
-                secretKeyRef:
-                  name: secrets-redis
-                  key: redis_url
-            - name: SERVICE_DEVICE_MANAGER_URL
-              value: "http://service-device-manager.default.svc.cluster.local:3000"
+          envFrom:
+            - configMapRef:
+                name: config-service-urls
+            - configMapRef:
+                name: config-node-env
+            - secretRef:
+                name: secrets-redis
+            - secretRef:
+                name: secrets-loggly

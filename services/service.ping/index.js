@@ -6,7 +6,7 @@ const { router, get } = require("microrouter");
 const {
   logger,
   withRequestLogger,
-} = require("@dan1elhughes/logging").configure(process.env);
+} = require("@dan1elhughes/micro-loggly").configure(process.env);
 
 module.exports = withRequestLogger(
   router(

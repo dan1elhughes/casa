@@ -2,5 +2,6 @@ build-utils/builders/builders
 **/vars/main.yml
 /.kube
 secrets.yml
+/secrets
 img.tar
 node_modules

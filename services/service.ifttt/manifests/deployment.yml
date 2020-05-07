@@ -26,9 +26,10 @@ spec:
             httpGet:
               path: /healthz
               port: 3000
-          env:
-            - name: IFTTT_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: secrets-ifttt
-                  key: ifttt_key
+          envFrom:
+            - configMapRef:
+                name: config-node-env
+            - secretRef:
+                name: secrets-ifttt
+            - secretRef:
+                name: secrets-loggly

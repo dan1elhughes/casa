@@ -6,6 +6,11 @@ assert(process.env.SERVICE_IFTTT_URL);
 assert(process.env.SERVICE_REDIS_URL);
 assert(process.env.SERVICE_SLACK_URL);
 
+const {
+  logger,
+  withRequestLogger,
+} = require("@dan1elhughes/logging").configure(process.env);
+
 const { send } = require("micro");
 const { router, get, put } = require("microrouter");
 
@@ -19,16 +24,18 @@ const putEvent = require("./routes/put-event");
 const putStoreDeviceStates = require("./routes/put-store-device-states");
 const putEvaluateSceneTriggers = require("./routes/put-evaluate-scene-triggers");
 
-module.exports = router(
-  get("/devices", getDevices),
-  get("/devices/:id", getDevice),
-  put("/devices/:id", putDevice),
-  put("/groups/:id", putGroup),
-  put("/scenes/:id", putScene),
-  put("/event", putEvent),
-  get("/healthz", getHealthz),
-  put("/store-device-states", putStoreDeviceStates),
-  put("/evaluate-scene-triggers", putEvaluateSceneTriggers),
-  get("/*", (req, res) => send(res, 404)),
-  put("/*", (req, res) => send(res, 404))
+module.exports = withRequestLogger(
+  router(
+    get("/devices", getDevices),
+    get("/devices/:id", getDevice),
+    put("/devices/:id", putDevice),
+    put("/groups/:id", putGroup),
+    put("/scenes/:id", putScene),
+    put("/event", putEvent),
+    get("/healthz", getHealthz),
+    put("/store-device-states", putStoreDeviceStates),
+    put("/evaluate-scene-triggers", putEvaluateSceneTriggers),
+    get("/*", (req, res) => send(res, 404)),
+    put("/*", (req, res) => send(res, 404))
+  )
 );

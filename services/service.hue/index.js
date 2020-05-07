@@ -4,6 +4,11 @@ assert(process.env.HUE_IP);
 assert(process.env.HUE_USER);
 assert(process.env.HUE_KEY);
 
+const {
+  logger,
+  withRequestLogger,
+} = require("@dan1elhughes/logging").configure(process.env);
+
 const getApi = require("./api");
 
 const { send } = require("micro");
@@ -14,11 +19,13 @@ const getLight = require("./routes/get-light");
 const getLights = require("./routes/get-lights");
 const putLight = require("./routes/put-light");
 
-module.exports = router(
-  get("/healthz", getHealthz),
-  get("/lights/:id", getLight),
-  get("/lights", getLights),
-  put("/lights/:id", putLight),
+module.exports = withRequestLogger(
+  router(
+    get("/healthz", getHealthz),
+    get("/lights/:id", getLight),
+    get("/lights", getLights),
+    put("/lights/:id", putLight),
 
-  get("/*", (req, res) => send(res, 404))
+    get("/*", (req, res) => send(res, 404))
+  )
 );

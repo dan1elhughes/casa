@@ -3,6 +3,11 @@ process.env.NODE_ENV === "development" && require("dotenv").config();
 assert(process.env.REDIS_URL);
 assert(process.env.SERVICE_DEVICE_MANAGER_URL);
 
+const {
+  logger,
+  withRequestLogger,
+} = require("@dan1elhughes/logging").configure(process.env);
+
 const rsmq = require("./queue/rsmq");
 rsmq.configure(process.env.REDIS_URL);
 
@@ -18,11 +23,13 @@ const deleteKey = require("./routes/delete-key");
 const putEvent = require("./routes/put-event");
 const getHealthz = require("./routes/get-healthz");
 
-module.exports = router(
-  get("/get/:key", getKey),
-  put("/set/:key", putKey),
-  del("/delete/:key", deleteKey),
-  put("/event", putEvent),
-  get("/healthz", getHealthz),
-  get("/*", (req, res) => send(res, 404))
+module.exports = withRequestLogger(
+  router(
+    get("/get/:key", getKey),
+    put("/set/:key", putKey),
+    del("/delete/:key", deleteKey),
+    put("/event", putEvent),
+    get("/healthz", getHealthz),
+    get("/*", (req, res) => send(res, 404))
+  )
 );

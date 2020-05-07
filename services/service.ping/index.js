@@ -1,14 +1,22 @@
+process.env.NODE_ENV === "development" && require("dotenv").config();
 const os = require("os");
 const { send } = require("micro");
 const { router, get } = require("microrouter");
 
-module.exports = router(
-  get("/healthz", () => ({ ok: true })),
+const {
+  logger,
+  withRequestLogger,
+} = require("@dan1elhughes/logging").configure(process.env);
 
-  get("/", () => ({
-    ping: "pong",
-    hostname: os.hostname(),
-  })),
+module.exports = withRequestLogger(
+  router(
+    get("/healthz", () => ({ ok: true })),
 
-  get("/*", (req, res) => send(res, 404))
+    get("/", () => ({
+      ping: "pong",
+      hostname: os.hostname(),
+    })),
+
+    get("/*", (req, res) => send(res, 404))
+  )
 );

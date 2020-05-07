@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "micro",
-    "dev": "micro-dev -p 3002"
+    "dev": "micro-dev --silent -p 3002"
   },
   "keywords": [],
   "author": "",

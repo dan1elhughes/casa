@@ -19,24 +19,30 @@ const getSunset = async () => {
   return new Date(results.sunset);
 };
 
-const shouldTriggerSunset = async () => {
-  const sunset = await getSunset();
-  return (
-    Math.abs(differenceInSeconds(new Date(), sunset)) <=
-    TIME_MATCH_TOLERANCE_SECONDS
+const shouldTriggerSunset = async ({ logger }) => {
+  const triggerAt = await getSunset();
+  const now = new Date();
+  const difference = Math.abs(differenceInSeconds(now, triggerAt));
+
+  logger.debug(
+    `Sunset: trigger ${triggerAt}, now ${now}, difference: ${difference}`
   );
+
+  return difference <= TIME_MATCH_TOLERANCE_SECONDS;
 };
 
-const shouldTriggerTime = async (triggerTime) => {
-  // Cancel out that parse converts to UTC - I'm defining
-  // the scene triggers in local time.
+const shouldTriggerTime = async ({ logger }, triggerTime) => {
   const rawTrigger = parse(triggerTime, "HH:mm", new Date());
-  const utc = zonedTimeToUtc(rawTrigger, TIMEZONE);
+  const triggerAt = zonedTimeToUtc(rawTrigger, TIMEZONE);
+  const now = new Date();
 
-  return (
-    Math.abs(differenceInSeconds(new Date(), utc)) <=
-    TIME_MATCH_TOLERANCE_SECONDS
+  const difference = Math.abs(differenceInSeconds(now, triggerAt));
+
+  logger.debug(
+    `Time: trigger ${triggerAt}, now ${now}, difference: ${difference}`
   );
+
+  return difference <= TIME_MATCH_TOLERANCE_SECONDS;
 };
 
 module.exports = async (req, res) => {
@@ -49,16 +55,14 @@ module.exports = async (req, res) => {
     .filter(Boolean)
     .flat();
 
-  logger.debug(`Got triggers: ${JSON.stringify(triggers)}`);
-
   const triggered = [];
   for (const { scene, trigger } of triggers) {
     switch (trigger) {
       case "@sunset":
-        if (await shouldTriggerSunset()) triggered.push(scene);
+        if (await shouldTriggerSunset(req)) triggered.push(scene);
         break;
       default:
-        if (await shouldTriggerTime(trigger)) triggered.push(scene);
+        if (await shouldTriggerTime(req, trigger)) triggered.push(scene);
         break;
     }
   }

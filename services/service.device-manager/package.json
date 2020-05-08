@@ -11,8 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dan1elhughes/micro-got-trace": "^1.0.1",
-    "@dan1elhughes/micro-loggly": "^2.1.1",
+    "@dan1elhughes/micro-got-trace": "^1.1.0",
+    "@dan1elhughes/micro-loggly": "^2.1.2",
     "date-fns": "^2.12.0",
     "date-fns-tz": "^1.0.10",
     "micro": "^9.3.4",

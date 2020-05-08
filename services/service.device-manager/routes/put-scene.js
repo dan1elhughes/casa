@@ -1,4 +1,3 @@
-const got = require("got");
 const { SERVICE_SLACK_URL } = process.env;
 
 const confGroups = require("../config/groups.json");
@@ -10,6 +9,7 @@ const controllers = require("../controllers");
 const { send, json } = require("micro");
 
 module.exports = async (req, res) => {
+  const { got } = req;
   const { id } = req.params;
   const scene = confScenes[id];
   if (!scene) return send(res, 404);
@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
       const state = states[stateID];
       if (!state) throw new Error(`${deviceID} can't find state ${stateID}`);
 
-      return controllers[device.controller].write(device, state);
+      return controllers[device.controller].write(req, device, state);
     })
   );
 

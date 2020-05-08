@@ -8,12 +8,12 @@ const scenes = require("../config/scenes.json");
 // to spread load across pods.
 const getDevices = require("./get-devices");
 
-const got = require("got");
 const { SERVICE_REDIS_URL } = process.env;
 
 const { send, json } = require("micro");
 
 module.exports = async (req, res) => {
+  const { got } = req;
   const states = await getDevices(req, res);
   await got.put(`${SERVICE_REDIS_URL}/set/device-data`, {
     json: { states, devices, groups, scenes },

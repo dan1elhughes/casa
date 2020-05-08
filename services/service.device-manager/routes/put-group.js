@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
   await Promise.all(
     group.map((id) => {
       const device = devices[id];
-      return controllers[device.controller].write(device, state);
+      return controllers[device.controller].write(req, device, state);
     })
   );
 

@@ -4,10 +4,10 @@ const controllers = require("../controllers");
 
 const { send } = require("micro");
 
-async function readDevice(id, device) {
+async function readDevice(req, id, device) {
   const controller = controllers[device.controller];
   return {
-    [id]: await controller.read(device),
+    [id]: await controller.read(req, device),
   };
 }
 
@@ -20,7 +20,7 @@ function flattenObjects(arrayOfObjects) {
 
 module.exports = async (req, res) => {
   const responses = await Promise.all(
-    Object.entries(devices).map(([id, device]) => readDevice(id, device))
+    Object.entries(devices).map(([id, device]) => readDevice(req, id, device))
   );
 
   return flattenObjects(responses);

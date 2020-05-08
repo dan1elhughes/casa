@@ -13,5 +13,5 @@ module.exports = async (req, res) => {
 
   const controller = controllers[device.controller];
 
-  return controller.read(device);
+  return controller.read(req, device);
 };

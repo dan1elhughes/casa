@@ -2,7 +2,6 @@ const { parse, subMinutes, isAfter, differenceInSeconds } = require("date-fns");
 const { zonedTimeToUtc, utcToZonedTime } = require("date-fns-tz");
 const TIMEZONE = "Europe/London";
 
-const got = require("got");
 const { SERVICE_DEVICE_MANAGER_URL } = process.env;
 
 const TIME_MATCH_TOLERANCE_SECONDS = 90;
@@ -14,13 +13,15 @@ const home = { lat: "51.507351", lng: "-0.127758" };
 const url = `https://api.sunrise-sunset.org/json?lat=${home.lat}&lng=${home.lng}&formatted=0`;
 
 // TODO: Cache this value.
-const getSunset = async () => {
+const getSunset = async (req) => {
+  const { got } = req;
   const { results } = await got(url).json();
   return new Date(results.sunset);
 };
 
-const shouldTriggerSunset = async ({ logger }) => {
-  const triggerAt = await getSunset();
+const shouldTriggerSunset = async (req) => {
+  const { logger } = req;
+  const triggerAt = await getSunset(req);
   const now = new Date();
   const difference = Math.abs(differenceInSeconds(now, triggerAt));
 
@@ -46,7 +47,8 @@ const shouldTriggerTime = async ({ logger }, triggerTime) => {
 };
 
 module.exports = async (req, res) => {
-  const { logger } = req;
+  const { logger, got } = req;
+
   const triggers = Object.entries(scenes)
     .map(([scene, { triggers }]) => {
       if (!triggers || triggers.length === 0) return;

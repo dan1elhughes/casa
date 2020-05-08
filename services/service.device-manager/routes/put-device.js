@@ -11,5 +11,5 @@ module.exports = async (req, res) => {
 
   const { state } = await json(req);
 
-  return controllers[device.controller].write(device, state);
+  return controllers[device.controller].write(req, device, state);
 };

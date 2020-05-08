@@ -5,7 +5,9 @@ assert(process.env.SLACK_WEBHOOK_URL);
 const { createSet, applyMiddleware, errorHandler } = require("micro-mw");
 const configureLogger = require("@dan1elhughes/micro-loggly");
 const { logger, requestLoggerMiddleware } = configureLogger(process.env);
-createSet("default", [requestLoggerMiddleware]);
+const configureTrace = require("@dan1elhughes/micro-got-trace");
+const { gotMiddleware } = configureTrace(process.env);
+createSet("default", [gotMiddleware, requestLoggerMiddleware]);
 
 const { send } = require("micro");
 const { router, get, post } = require("microrouter");

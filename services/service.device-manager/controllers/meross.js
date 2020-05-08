@@ -1,15 +1,15 @@
 const { SERVICE_IFTTT_URL } = process.env;
-const got = require("got");
 
 module.exports = {
-  read(device) {
+  read(_, device) {
     return {
       name: device.name,
       id: device.params.id,
     };
   },
 
-  async write(device, state) {
+  async write(req, device, state) {
+    const { got } = req;
     const { id } = device.params;
     return got
       .put(`${SERVICE_IFTTT_URL}/devices/${id}`, { json: { state } })

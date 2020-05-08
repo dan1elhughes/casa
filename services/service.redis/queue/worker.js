@@ -22,14 +22,15 @@ module.exports.instance = async () => {
 
     instance.on("message", async (msg, done, id) => {
       const content = JSON.parse(msg);
-      const { destination, body } = content;
+      const { destination, body, traceId } = content;
 
       let service = {
         "device-manager": SERVICE_DEVICE_MANAGER_URL,
       }[destination];
 
       if (service) {
-        await got.put(`${service}/event`, { json: body }).json();
+        const headers = { "x-trace-id": traceId };
+        await got.put(`${service}/event`, { headers, json: body }).json();
       } else {
         console.log(`Unconfigured destination ${destination}`);
       }

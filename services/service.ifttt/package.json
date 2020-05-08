@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@dan1elhughes/micro-got-trace": "^1.0.1",
     "@dan1elhughes/micro-loggly": "^2.0.1",
     "isomorphic-fetch": "^2.2.1",
     "micro": "^9.3.4",

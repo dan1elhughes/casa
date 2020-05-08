@@ -64,7 +64,7 @@
   },
   "bedside": {
     "name": "Bedside",
-    "triggers": ["00:00"],
+    "triggers": ["23:45"],
     "devices": { "bed-lamp": "dim-light", "desk-lamp": "off" },
     "groups": { "living-room": "off" },
     "states": {

@@ -7,7 +7,12 @@ echo "Service name: $svcimage"
 
 unset SSH_AUTH_SOCK
 
-builder=$(sort -R ../../build-utils/builders/builders | head -n 1)
+if [ $# -eq 0 ]; then
+    builder=$(sort -R ../../build-utils/builders/builders | head -n 1)
+else
+    builder=$1
+fi
+
 echo "Selected builder: $builder"
 
 ssh pi@$builder "mkdir -p .workspace/$svcimage"

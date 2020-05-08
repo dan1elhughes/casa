@@ -2,10 +2,10 @@ const assert = require("assert");
 process.env.NODE_ENV === "development" && require("dotenv").config();
 assert(process.env.IFTTT_KEY);
 
-const {
-  logger,
-  withRequestLogger,
-} = require("@dan1elhughes/micro-loggly").configure(process.env);
+const { createSet, applyMiddleware, errorHandler } = require("micro-mw");
+const configureLogger = require("@dan1elhughes/micro-loggly");
+const { logger, requestLoggerMiddleware } = configureLogger(process.env);
+createSet("default", [requestLoggerMiddleware]);
 
 require("isomorphic-fetch");
 
@@ -15,7 +15,7 @@ const { router, get, put } = require("microrouter");
 const getHealthz = require("./routes/get-healthz");
 const putDevice = require("./routes/put-device");
 
-module.exports = withRequestLogger(
+module.exports = applyMiddleware(
   router(
     get("/healthz", getHealthz),
     put("/devices/:device", putDevice),

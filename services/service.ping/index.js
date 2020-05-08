@@ -3,12 +3,12 @@ const os = require("os");
 const { send } = require("micro");
 const { router, get } = require("microrouter");
 
-const {
-  logger,
-  withRequestLogger,
-} = require("@dan1elhughes/micro-loggly").configure(process.env);
+const { createSet, applyMiddleware, errorHandler } = require("micro-mw");
+const configureLogger = require("@dan1elhughes/micro-loggly");
+const { logger, requestLoggerMiddleware } = configureLogger(process.env);
+createSet("default", [requestLoggerMiddleware]);
 
-module.exports = withRequestLogger(
+module.exports = applyMiddleware(
   router(
     get("/healthz", () => ({ ok: true })),
 

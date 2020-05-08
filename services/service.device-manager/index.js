@@ -1,15 +1,9 @@
-const assert = require("assert");
 process.env.NODE_ENV === "development" && require("dotenv").config();
-assert(process.env.SERVICE_DEVICE_MANAGER_URL);
-assert(process.env.SERVICE_HUE_URL);
-assert(process.env.SERVICE_IFTTT_URL);
-assert(process.env.SERVICE_REDIS_URL);
-assert(process.env.SERVICE_SLACK_URL);
 
-const {
-  logger,
-  withRequestLogger,
-} = require("@dan1elhughes/micro-loggly").configure(process.env);
+const { createSet, applyMiddleware } = require("micro-mw");
+const configureLogger = require("@dan1elhughes/micro-loggly");
+const { logger, requestLoggerMiddleware } = configureLogger(process.env);
+createSet("default", [requestLoggerMiddleware]);
 
 const { send } = require("micro");
 const { router, get, put } = require("microrouter");
@@ -24,7 +18,7 @@ const putEvent = require("./routes/put-event");
 const putStoreDeviceStates = require("./routes/put-store-device-states");
 const putEvaluateSceneTriggers = require("./routes/put-evaluate-scene-triggers");
 
-module.exports = withRequestLogger(
+module.exports = applyMiddleware(
   router(
     get("/devices", getDevices),
     get("/devices/:id", getDevice),

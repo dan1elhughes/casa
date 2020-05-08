@@ -40,6 +40,7 @@ const shouldTriggerTime = async (triggerTime) => {
 };
 
 module.exports = async (req, res) => {
+  const { logger } = req;
   const triggers = Object.entries(scenes)
     .map(([scene, { triggers }]) => {
       if (!triggers || triggers.length === 0) return;
@@ -47,6 +48,8 @@ module.exports = async (req, res) => {
     })
     .filter(Boolean)
     .flat();
+
+  logger.debug(`Got triggers: ${JSON.stringify(triggers)}`);
 
   const triggered = [];
   for (const { scene, trigger } of triggers) {
@@ -61,6 +64,7 @@ module.exports = async (req, res) => {
   }
 
   for (const scene of triggered) {
+    logger.debug(`Triggered: ${scene}`);
     await got.put(`${SERVICE_DEVICE_MANAGER_URL}/scenes/${scene}`);
   }
 

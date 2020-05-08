@@ -4,10 +4,10 @@ assert(process.env.HUE_IP);
 assert(process.env.HUE_USER);
 assert(process.env.HUE_KEY);
 
-const {
-  logger,
-  withRequestLogger,
-} = require("@dan1elhughes/micro-loggly").configure(process.env);
+const { createSet, applyMiddleware } = require("micro-mw");
+const configureLogger = require("@dan1elhughes/micro-loggly");
+const { logger, requestLoggerMiddleware } = configureLogger(process.env);
+createSet("default", [requestLoggerMiddleware]);
 
 const getApi = require("./api");
 
@@ -19,7 +19,7 @@ const getLight = require("./routes/get-light");
 const getLights = require("./routes/get-lights");
 const putLight = require("./routes/put-light");
 
-module.exports = withRequestLogger(
+module.exports = applyMiddleware(
   router(
     get("/healthz", getHealthz),
     get("/lights/:id", getLight),

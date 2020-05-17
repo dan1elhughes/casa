@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: cron-evaluate-scene-triggers
+  name: cron-scheduler-tick
 spec:
   schedule: "* * * * *"
   concurrencyPolicy: Forbid
@@ -11,10 +11,10 @@ spec:
       template:
         spec:
           containers:
-            - name: evaluate-scene-triggers
+            - name: scheduler-tick
               image: buildpack-deps:curl
               args:
                 - /bin/sh
                 - -ec
-                - curl --fail -X PUT http://service-device-manager.default.svc.cluster.local:3000/evaluate-scene-triggers
+                - curl --fail -X PUT http://service-scheduler.default.svc.cluster.local:3000/tick
           restartPolicy: Never

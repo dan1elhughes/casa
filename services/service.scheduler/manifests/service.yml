@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-scheduler
+spec:
+  selector:
+    app: app-scheduler
+  ports:
+    - name: http
+      port: 3000

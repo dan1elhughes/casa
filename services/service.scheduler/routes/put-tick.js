@@ -6,7 +6,7 @@ const { SERVICE_DEVICE_MANAGER_URL } = process.env;
 
 const TIME_MATCH_TOLERANCE_SECONDS = 90;
 
-const scenes = require("../config/scenes.json");
+const schedule = require("../config/schedule.json");
 
 // Don't wanna publish my home address, but close enough.
 const home = { lat: "51.507351", lng: "-0.127758" };
@@ -49,22 +49,14 @@ const shouldTriggerTime = async ({ logger }, triggerTime) => {
 module.exports = async (req, res) => {
   const { logger, got } = req;
 
-  const triggers = Object.entries(scenes)
-    .map(([scene, { triggers }]) => {
-      if (!triggers || triggers.length === 0) return;
-      return triggers.map((trigger) => ({ scene, trigger }));
-    })
-    .filter(Boolean)
-    .flat();
-
   const triggered = [];
-  for (const { scene, trigger } of triggers) {
-    switch (trigger) {
+  for (const { scene, at } of schedule) {
+    switch (at) {
       case "@sunset":
         if (await shouldTriggerSunset(req)) triggered.push(scene);
         break;
       default:
-        if (await shouldTriggerTime(req, trigger)) triggered.push(scene);
+        if (await shouldTriggerTime(req, at)) triggered.push(scene);
         break;
     }
   }

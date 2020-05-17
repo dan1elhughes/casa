@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-scheduler
+  labels:
+    app: app-scheduler
+spec:
+  replicas: 2
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: app-scheduler
+  template:
+    metadata:
+      labels:
+        app: app-scheduler
+    spec:
+      containers:
+        - name: container-scheduler
+          image: dan1elhughes/casa-s-scheduler:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+          envFrom:
+            - configMapRef:
+                name: config-service-urls
+            - configMapRef:
+                name: config-node-env
+            - secretRef:
+                name: secrets-loggly

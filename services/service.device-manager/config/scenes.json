@@ -26,7 +26,6 @@
   },
   "morning": {
     "name": "Morning",
-    "triggers": ["08:00"],
     "groups": { "bedroom": "warm" },
     "states": {
       "warm": {
@@ -38,7 +37,6 @@
   },
   "sunset": {
     "name": "Sunset",
-    "triggers": ["@sunset"],
     "groups": { "living-room": "warm", "bedroom": "warm" },
     "states": {
       "warm": {
@@ -64,7 +62,6 @@
   },
   "bedside": {
     "name": "Bedside",
-    "triggers": ["23:45"],
     "devices": { "bed-lamp": "dim-light", "desk-lamp": "off" },
     "groups": { "living-room": "off" },
     "states": {

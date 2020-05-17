@@ -24,7 +24,7 @@ module.exports = applyMiddleware(
   router(
     get("/devices", getDevices),
     get("/devices/:id", getDevice),
-    put("/devices/:id/lock/:isLocked", putLockDevice),
+    put("/locks/:id/:isLocked", putLockDevice),
     put("/devices/:id", putDevice),
     put("/groups/:id", putGroup),
     put("/scenes/:id", putScene),

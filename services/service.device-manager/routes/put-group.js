@@ -5,6 +5,8 @@ const controllers = require("../controllers");
 
 const { send, json } = require("micro");
 
+const { locked } = require("./utils");
+
 module.exports = async (req, res) => {
   const { id } = req.params;
   const group = groups[id];
@@ -13,8 +15,15 @@ module.exports = async (req, res) => {
   const { state } = await json(req);
 
   await Promise.all(
-    group.map((id) => {
+    group.map(async (id) => {
       const device = devices[id];
+
+      if (await locked(req, id)) {
+        return {
+          locked: true,
+        };
+      }
+
       return controllers[device.controller].write(req, device, state);
     })
   );

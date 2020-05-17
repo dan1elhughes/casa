@@ -14,6 +14,7 @@ const getDevices = require("./routes/get-devices");
 const getDevice = require("./routes/get-device");
 const getHealthz = require("./routes/get-healthz");
 const putDevice = require("./routes/put-device");
+const putLockDevice = require("./routes/put-lock-device");
 const putGroup = require("./routes/put-group");
 const putScene = require("./routes/put-scene");
 const putEvent = require("./routes/put-event");
@@ -23,6 +24,7 @@ module.exports = applyMiddleware(
   router(
     get("/devices", getDevices),
     get("/devices/:id", getDevice),
+    put("/devices/:id/lock/:isLocked", putLockDevice),
     put("/devices/:id", putDevice),
     put("/groups/:id", putGroup),
     put("/scenes/:id", putScene),

@@ -1,9 +1,6 @@
 const rsmq = require("../queue/rsmq");
 
-const { promisify } = require("util");
-function async(client, method) {
-  return promisify(client[method]).bind(client);
-}
+const { async } = require("./utils");
 
 module.exports = async (req, res) => {
   const { key } = req.params;

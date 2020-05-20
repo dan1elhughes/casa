@@ -22,5 +22,11 @@
     "deviceClass": "switch",
     "controller": "meross",
     "params": { "id": "living_room_shelf" }
+  },
+  "living-room-fan": {
+    "name": "Living room fan",
+    "deviceClass": "switch",
+    "controller": "meross",
+    "params": { "id": "living_room_fan" }
   }
 }

@@ -14,9 +14,9 @@ const { send, json } = require("micro");
 
 module.exports = async (req, res) => {
   const { got } = req;
-  const states = await getDevices(req, res);
+  const devices = await getDevices(req, res);
   await got.put(`${SERVICE_REDIS_URL}/set/device-data`, {
-    json: { states, devices, groups, scenes },
+    json: { devices, groups, scenes },
   });
   return { ok: true };
 };

@@ -3,6 +3,7 @@
   service:
     name: sshd
     state: restarted
+    daemon_reload: yes
 
 - name: reboot
   become: yes

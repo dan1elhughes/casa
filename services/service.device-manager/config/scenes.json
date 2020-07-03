@@ -62,16 +62,11 @@
   },
   "bedside": {
     "name": "Bedside",
-    "devices": { "bed-lamp": "dim-light", "desk-lamp": "off" },
+    "devices": { "desk-lamp": "off" },
     "groups": { "living-room": "off" },
     "states": {
       "off": {
         "on": false
-      },
-      "dim-light": {
-        "on": true,
-        "bri": 150,
-        "ct": 500
       }
     }
   }

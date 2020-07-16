@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 for D in */; do
-    kubectl apply -f $D/manifests
+    kubectl delete -f $D/manifests
 done

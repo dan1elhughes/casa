@@ -27,6 +27,8 @@
   pip:
     name: docker
 
+# REBOOT DEVICES IF THIS FAILS ON FIRST RUN
+# ansible all -m reboot -i infrastructure/inventory --become
 - name: Login Pi user to Docker Hub
   become: false
   docker_login:

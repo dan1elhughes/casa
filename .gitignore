@@ -1,7 +1,11 @@
-build-utils/builders/builders
-**/vars/main.yml
-/.kube
+/infrastructure/kubeconfig
 secrets.yml
 /secrets
-img.tar
+
 node_modules
+
+build-utils/builders/builders
+**/vars/main.yml
+
+
+

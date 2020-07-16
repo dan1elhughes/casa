@@ -1,4 +1,0 @@
----
-- hosts: workers
-  roles:
-    - worker

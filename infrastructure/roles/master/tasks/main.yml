@@ -1,8 +1,0 @@
----
-- name: Create systemd server service
-  notify:
-    - restart k3s
-  template:
-    src: "../templates/k3s.service"
-    dest: "/etc/systemd/system/k3s.service"
-    mode: 0644

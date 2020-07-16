@@ -1,14 +1,8 @@
-[master]
-000f00cfcd06.local
-
-[workers]
-000f00de1152.local
-000f02365bce.local
+[nodes]
+192.168.1.14[0:2]
 
 [builders]
-000f00cfcd06.local
-000f00de1152.local
-000f02365bce.local
+192.168.1.14[0:2]
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3

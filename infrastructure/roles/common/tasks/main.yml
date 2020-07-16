@@ -5,6 +5,18 @@
     content: "pi ALL=(ALL) NOPASSWD: ALL"
     mode: 0440
 
+- name: Create .ssh directory
+  file:
+    path: /home/pi/.ssh
+    state: directory
+
+- name: Fetch authorized SSH keys from GitHub
+  become: false
+  get_url:
+    url: https://github.com/dan1elhughes.keys
+    dest: /home/pi/.ssh/authorized_keys
+    mode: "0644"
+
 - name: Disable password-only SSH
   notify:
     - restart ssh

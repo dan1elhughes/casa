@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 export MASTER_IP=192.168.1.140
+declare -a ips=("192.168.1.141" "192.168.1.142")
 export USER=pi
 
 export ARGS="--no-deploy metrics-server"
@@ -10,7 +11,6 @@ k3sup install \
     --user $USER \
     --k3s-extra-args "$ARGS"
 
-declare -a ips=("192.168.1.141" "192.168.1.142")
 for WORKER_IP in "${ips[@]}"; do
     k3sup join \
         --server-ip $MASTER_IP \

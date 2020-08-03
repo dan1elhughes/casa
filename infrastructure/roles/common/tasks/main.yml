@@ -5,17 +5,29 @@
     content: "pi ALL=(ALL) NOPASSWD: ALL"
     mode: 0440
 
-- name: Create .ssh directory
-  file:
-    path: /home/pi/.ssh
-    state: directory
-
-- name: Fetch authorized SSH keys from GitHub
-  become: false
+- name: Fetch auth program
   get_url:
-    url: https://github.com/dan1elhughes.keys
-    dest: /home/pi/.ssh/authorized_keys
-    mode: "0644"
+    url: https://raw.githubusercontent.com/dan1elhughes/auth/master/auth.sh
+    dest: /usr/local/bin/auth
+    mode: "0755"
+
+- name: Enable auth program
+  notify:
+    - restart ssh
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^AuthorizedKeysCommand "
+    line: "AuthorizedKeysCommand /usr/local/bin/auth"
+    state: present
+
+- name: Auth as nobody
+  notify:
+    - restart ssh
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^AuthorizedKeysCommandUser"
+    line: "AuthorizedKeysCommandUser nobody"
+    state: present
 
 - name: Disable password-only SSH
   notify:

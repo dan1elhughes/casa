@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
+img="arm32v7/node:13-slim"
+
 svcdir=$(pwd)
 svcimage=$(echo `basename $svcdir` | sed 's/service\./s-/g')
+service=$(basename $svcdir)
 
 echo "Service name: $svcimage"
 
@@ -15,13 +18,16 @@ fi
 
 echo "Selected builder: $builder"
 
-ssh pi@$builder "mkdir -p .workspace/$svcimage"
+echo "Compiling..."
+yarn build
 
-echo "Sending service files..."
-rsync -azvhP --copy-links --delete $svcdir/ pi@$builder:.workspace/$svcimage
+ssh pi@$builder "mkdir -p .workspace"
+
+echo "Sending files..."
+rsync -azvhP --copy-links --delete ../ pi@$builder:.workspace
 
 echo "Building image..."
-ssh pi@$builder "docker build -t dan1elhughes/casa-$svcimage:latest .workspace/$svcimage"
+ssh pi@$builder "docker build -t dan1elhughes/casa-$svcimage:latest --build-arg SERVICE=$service --build-arg IMG=$img .workspace"
 
 echo "Pushing image..."
 ssh pi@$builder "docker push dan1elhughes/casa-$svcimage:latest"

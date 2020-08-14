@@ -1,14 +1,12 @@
-process.env.NODE_ENV === "development" && require("dotenv").config();
+process.env.NODE_ENV !== "production" && require("dotenv").config();
 const os = require("os");
 const { send } = require("micro");
 const { router, get } = require("microrouter");
 
-const { createSet, applyMiddleware, errorHandler } = require("micro-mw");
-const configureLogger = require("@dan1elhughes/micro-loggly");
-const { logger, requestLoggerMiddleware } = configureLogger(process.env);
-const configureTrace = require("@dan1elhughes/micro-got-trace");
-const { gotMiddleware } = configureTrace(process.env);
-createSet("default", [gotMiddleware, requestLoggerMiddleware]);
+const { createSet, applyMiddleware } = require("micro-mw");
+const traceMW = require("@casa/lib-trace")(process.env);
+const loggerMW = require("@casa/lib-logger")(process.env);
+createSet("default", [traceMW, loggerMW]);
 
 module.exports = applyMiddleware(
   router(

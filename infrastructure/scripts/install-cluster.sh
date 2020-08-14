@@ -3,13 +3,14 @@
 export MASTER_IP=192.168.1.140
 declare -a ips=("192.168.1.141" "192.168.1.142")
 export USER=pi
+export CONTEXT=casa
 
-export ARGS="--no-deploy metrics-server"
 
 k3sup install \
     --ip $MASTER_IP \
     --user $USER \
-    --k3s-extra-args "$ARGS"
+    --context $CONTEXT \
+    --no-extras
 
 for WORKER_IP in "${ips[@]}"; do
     k3sup join \

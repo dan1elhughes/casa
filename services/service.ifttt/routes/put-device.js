@@ -6,6 +6,7 @@ const getUrl = (event) =>
   `https://maker.ifttt.com/trigger/${event}/with/key/${IFTTT_KEY}`;
 
 module.exports = async (req, res) => {
+  const { got } = req;
   const { device } = req.params;
   const body = await json(req);
   const { state } = body;
@@ -14,7 +15,7 @@ module.exports = async (req, res) => {
   const event = encodeURIComponent(`${device}.${on}`);
   const url = getUrl(event);
 
-  await fetch(url, { method: "POST" });
+  await got.post(url);
 
   return { state: { on } };
 };

@@ -1,15 +1,13 @@
+process.env.NODE_ENV !== "production" && require("dotenv").config();
 const assert = require("assert");
-process.env.NODE_ENV === "development" && require("dotenv").config();
 assert(process.env.HUE_IP);
 assert(process.env.HUE_USER);
 assert(process.env.HUE_KEY);
 
 const { createSet, applyMiddleware } = require("micro-mw");
-const configureLogger = require("@dan1elhughes/micro-loggly");
-const { logger, requestLoggerMiddleware } = configureLogger(process.env);
-const configureTrace = require("@dan1elhughes/micro-got-trace");
-const { gotMiddleware } = configureTrace(process.env);
-createSet("default", [gotMiddleware, requestLoggerMiddleware]);
+const traceMW = require("@casa/lib-trace")(process.env);
+const loggerMW = require("@casa/lib-logger")(process.env);
+createSet("default", [traceMW, loggerMW]);
 
 const getApi = require("./api");
 

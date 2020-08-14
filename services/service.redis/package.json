@@ -4,16 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "micro",
-    "dev": "micro-dev --silent -p 3004"
+    "start": "micro-dev",
+    "build": "ncc build micro.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dan1elhughes/micro-got-trace": "^1.1.0",
-    "@dan1elhughes/micro-loggly": "^2.1.2",
-    "got": "^11.1.2",
+    "@casa/lib-logger": "1.0.0",
+    "@casa/lib-trace": "1.0.0",
     "micro": "^9.3.4",
     "micro-mw": "^1.3.0",
     "microrouter": "^3.1.3",
@@ -22,6 +21,7 @@
     "rsmq-worker": "^0.5.2"
   },
   "devDependencies": {
+    "@vercel/ncc": "^0.23.0",
     "dotenv": "^8.2.0",
     "micro-dev": "^3.0.0"
   }

@@ -1,0 +1,7 @@
+###
+### This file is templates from /build-utils. Edits will be overwritten.
+###
+.git
+node_modules
+npm-debug.log
+Dockerfile

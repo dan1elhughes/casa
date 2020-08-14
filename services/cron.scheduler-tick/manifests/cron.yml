@@ -16,5 +16,5 @@ spec:
               args:
                 - /bin/sh
                 - -ec
-                - curl --fail -X PUT http://service-scheduler.default.svc.cluster.local:3000/tick
+                - curl --fail -sSL -X PUT http://service-scheduler.default.svc.cluster.local:3000/tick
           restartPolicy: Never

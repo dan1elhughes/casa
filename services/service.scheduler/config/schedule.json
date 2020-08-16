@@ -1,5 +1,6 @@
 [
   { "scene": "morning", "at": "08:00" },
   { "scene": "sunset", "at": "@sunset" },
-  { "scene": "bedside", "at": "23:45" }
+  { "scene": "bedside", "at": "23:45" },
+  { "scene": "everything-off", "at": "00:00" }
 ]

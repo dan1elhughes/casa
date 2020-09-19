@@ -69,5 +69,13 @@
         "on": false
       }
     }
+  },
+  "camera-light": {
+    "name": "Camera light",
+    "devices": { "desk-lamp": "white", "bed-lamp": "warm" },
+    "states": {
+      "warm": { "on": true, "bri": 254, "ct": 500 },
+      "white": { "on": true, "bri": 254, "ct": 154 }
+    }
   }
 }

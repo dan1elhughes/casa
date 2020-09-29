@@ -30,6 +30,4 @@ spec:
             - configMapRef:
                 name: config-node-env
             - secretRef:
-                name: secrets-loggly
-            - secretRef:
                 name: secrets-hue

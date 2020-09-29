@@ -31,5 +31,3 @@ spec:
                 name: config-node-env
             - secretRef:
                 name: secrets-slack
-            - secretRef:
-                name: secrets-loggly

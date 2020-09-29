@@ -31,5 +31,3 @@ spec:
                 name: config-service-urls
             - configMapRef:
                 name: config-node-env
-            - secretRef:
-                name: secrets-loggly

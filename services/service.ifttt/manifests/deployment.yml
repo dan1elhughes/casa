@@ -31,5 +31,3 @@ spec:
                 name: config-node-env
             - secretRef:
                 name: secrets-ifttt
-            - secretRef:
-                name: secrets-loggly

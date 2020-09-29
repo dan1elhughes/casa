@@ -33,5 +33,3 @@ spec:
                 name: config-node-env
             - secretRef:
                 name: secrets-redis
-            - secretRef:
-                name: secrets-loggly

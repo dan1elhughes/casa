@@ -29,5 +29,3 @@ spec:
           envFrom:
             - configMapRef:
                 name: config-node-env
-            - secretRef:
-                name: secrets-loggly

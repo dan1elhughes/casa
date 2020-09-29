@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-meross
+  labels:
+    app: app-meross
+spec:
+  replicas: 2
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: app-meross
+  template:
+    metadata:
+      labels:
+        app: app-meross
+    spec:
+      containers:
+        - name: container-meross
+          image: dan1elhughes/casa-s-meross:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+          envFrom:
+            - secretRef:
+                name: secrets-meross

@@ -18,8 +18,10 @@ fi
 
 echo "Selected builder: $builder"
 
-echo "Compiling..."
-yarn build
+if [ -f "package.json" ]; then
+    echo "Compiling..."
+    yarn build
+fi
 
 ssh pi@$builder "mkdir -p .workspace"
 

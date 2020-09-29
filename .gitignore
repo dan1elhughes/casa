@@ -3,9 +3,9 @@ secrets.yml
 /secrets
 
 node_modules
+__pycache__
 
 build-utils/builders/builders
 **/vars/main.yml
 
-
-
+.env

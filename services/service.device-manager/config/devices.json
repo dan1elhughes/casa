@@ -1,32 +1,22 @@
 {
-  "living-room-lamp": {
-    "name": "Living room lamp",
-    "deviceClass": "bulb",
-    "controller": "hue",
-    "params": { "id": "2" }
-  },
   "bed-lamp": {
     "name": "Bed lamp",
-    "deviceClass": "bulb",
     "controller": "hue",
     "params": { "id": "1" }
   },
+  "living-room-lamp": {
+    "name": "Living room lamp",
+    "controller": "hue",
+    "params": { "id": "2" }
+  },
   "desk-lamp": {
     "name": "Desk lamp",
-    "deviceClass": "bulb",
     "controller": "hue",
     "params": { "id": "3" }
   },
   "living-room-shelf": {
     "name": "Living room shelf",
-    "deviceClass": "switch",
     "controller": "meross",
-    "params": { "id": "living_room_shelf" }
-  },
-  "living-room-fan": {
-    "name": "Living room fan",
-    "deviceClass": "switch",
-    "controller": "meross",
-    "params": { "id": "living_room_fan" }
+    "params": { "id": "19091228424117251h1848e1e9045294" }
   }
 }

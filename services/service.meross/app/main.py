@@ -79,6 +79,15 @@ async def read_device(device_id: str):
     return deviceToJSON(devices[device_id])
 
 
+@app.get("/devices/{device_id}/{channel_id}")
+async def read_channel_device(device_id: str, channel_id: int):
+    global devices
+    if device_id not in devices:
+        raise HTTPException(status_code=404)
+
+    return deviceToJSON(devices[device_id], channel_id)
+
+
 class WriteDeviceState(BaseModel):
     on: bool
 
@@ -101,18 +110,39 @@ async def write_device(device_id: str, body: WriteDeviceDTO):
         await device.async_turn_off()
 
     return {
-        "state": {
-            "on": body.state.on
-        }
+        "state": {"on": body.state.on}
     }
 
 
-def deviceToJSON(device: BaseDevice):
+@app.put("/devices/{device_id}/{channel_id}")
+async def write_channel_device(device_id: str, channel_id: int, body: WriteDeviceDTO):
+    global devices
+    if device_id not in devices:
+        raise HTTPException(status_code=404)
+
+    device = devices[device_id]
+
+    if body.state.on:
+        await device.async_turn_on(channel=channel_id)
+    else:
+        await device.async_turn_off(channel=channel_id)
+
+    return {
+        "state": {"on": body.state.on}
+    }
+
+
+def deviceToJSON(device, channel=0):
+    name = device.name
+    if channel is not 0:
+        name = device.lookup_channel(channel).name
+
     return {
         "id": device.uuid,
-        "name": device.name,
+        "channel": channel or None,
+        "name": name,
         "state": {
             "reachable": device.online_status,
-            "on": device.is_on(),
+            "on": device.is_on(channel),
         }
     }

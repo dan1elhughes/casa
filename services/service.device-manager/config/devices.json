@@ -18,5 +18,29 @@
     "name": "Living room shelf",
     "controller": "meross",
     "params": { "id": "19091228424117251h1848e1e9045294" }
+  },
+  "right-speaker": {
+    "name": "Right speaker",
+    "controller": "meross",
+    "params": {
+      "id": "1911115584535990804948e1e9115f50",
+      "channel": 1
+    }
+  },
+  "left-speaker": {
+    "name": "Left speaker",
+    "controller": "meross",
+    "params": {
+      "id": "1911115584535990804948e1e9115f50",
+      "channel": 2
+    }
+  },
+  "screen": {
+    "name": "Screen",
+    "controller": "meross",
+    "params": {
+      "id": "1911115584535990804948e1e9115f50",
+      "channel": 4
+    }
   }
 }

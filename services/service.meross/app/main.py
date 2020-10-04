@@ -1,11 +1,13 @@
+from pydantic import BaseModel
+from typing import Optional
+from meross_iot.manager import MerossManager, BaseDevice
+from meross_iot.http_api import MerossHttpClient
+from fastapi import FastAPI, HTTPException, Path
 import asyncio
 import os
 
-from fastapi import FastAPI, HTTPException, Path
-from meross_iot.http_api import MerossHttpClient
-from meross_iot.manager import MerossManager, BaseDevice
-from typing import Optional
-from pydantic import BaseModel
+from dotenv import load_dotenv
+load_dotenv(verbose=True)
 
 
 app = FastAPI()

@@ -1,6 +1,8 @@
-const { SERVICE_REDIS_URL } = process.env;
+const { SERVICE_REDIS_URL, NODE_ENV } = process.env;
 
 module.exports.locked = async (req, id) => {
+  if (NODE_ENV !== "production") return false;
+
   const { got, logger } = req;
 
   try {

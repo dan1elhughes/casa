@@ -77,5 +77,16 @@
       "warm": { "on": true, "bri": 254, "ct": 500 },
       "white": { "on": true, "bri": 254, "ct": 154 }
     }
+  },
+  "pc-on": {
+    "name": "PC on",
+    "devices": {
+      "left-speaker": "on",
+      "right-speaker": "on",
+      "screen": "on"
+    },
+    "states": {
+      "on": { "on": true }
+    }
   }
 }

@@ -1,3 +1,4 @@
 {
-  "python.pythonPath": "/Users/danhughes/src/github.com/dan1elhughes/casa/services/service.meross/.env/bin/python3"
+  "python.pythonPath": "/Users/danhughes/src/github.com/dan1elhughes/casa/services/service.meross/.env/bin/python3",
+  "typescript.tsdk": "/Users/danhughes/src/github.com/dan1elhughes/casa/services/node_modules/typescript/lib"
 }

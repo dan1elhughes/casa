@@ -7,5 +7,13 @@
   "workspaces": [
     "service.*",
     "lib.*"
-  ]
+  ],
+  "scripts": {
+    "watch": "tsc -w"
+  },
+  "dependencies": {
+    "@types/micro": "^7.3.3",
+    "@types/node": "^14.11.8",
+    "typescript": "^4.0.3"
+  }
 }

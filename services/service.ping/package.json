@@ -1,5 +1,5 @@
 {
-  "name": "service.ping",
+  "name": "@casa/service.ping",
   "version": "1.0.0",
   "description": "",
   "scripts": {

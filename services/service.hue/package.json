@@ -1,5 +1,5 @@
 {
-  "name": "service.hue",
+  "name": "@casa/service.hue",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

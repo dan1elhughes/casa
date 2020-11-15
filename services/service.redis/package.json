@@ -1,5 +1,5 @@
 {
-  "name": "service.redis",
+  "name": "@casa/service.redis",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

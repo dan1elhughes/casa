@@ -1,0 +1,16 @@
+{
+  "name": "@casa/lib-requests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/microrouter": "^3.1.1",
+    "http-status-codes": "^2.1.4"
+  }
+}

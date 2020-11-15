@@ -1,23 +1,13 @@
 const assert = require("assert");
 process.env.NODE_ENV !== "production" && require("dotenv").config();
-assert(process.env.SLACK_WEBHOOK_URL);
+// assert(process.env.SLACK_WEBHOOK_URL);
 
 const { createSet, applyMiddleware } = require("micro-mw");
 const traceMW = require("@casa/lib-trace")(process.env);
 const loggerMW = require("@casa/lib-logger")(process.env);
 createSet("default", [traceMW, loggerMW]);
 
-const { send } = require("micro");
-const { router, get, post } = require("microrouter");
+const { makeRouter } = require("@casa/lib-requests");
+const { routes } = require("./requests");
 
-const postMessage = require("./routes/post-message");
-const getHealthz = require("./routes/get-healthz");
-
-module.exports = applyMiddleware(
-  router(
-    post("/post-message", postMessage),
-    get("/healthz", getHealthz),
-    get("/*", (req, res) => send(res, 404)),
-    post("/*", (req, res) => send(res, 404))
-  )
-);
+module.exports = applyMiddleware(makeRouter(routes));

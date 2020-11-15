@@ -1,5 +1,5 @@
 {
-  "name": "service.device-manager",
+  "name": "@casa/service.device-manager",
   "version": "1.0.0",
   "description": "",
   "scripts": {

@@ -1,6 +1,7 @@
 /infrastructure/kubeconfig
 secrets.yml
 /secrets
+dist/
 
 node_modules
 __pycache__

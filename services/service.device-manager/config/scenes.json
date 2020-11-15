@@ -8,22 +8,6 @@
       }
     }
   },
-  "evening": {
-    "name": "Evening",
-    "groups": { "living-room": "evening-light", "bedroom": "dim-light" },
-    "states": {
-      "evening-light": {
-        "on": true,
-        "bri": 254,
-        "ct": 500
-      },
-      "dim-light": {
-        "on": true,
-        "bri": 150,
-        "ct": 500
-      }
-    }
-  },
   "morning": {
     "name": "Morning",
     "groups": { "bedroom": "warm" },
@@ -37,7 +21,8 @@
   },
   "sunset": {
     "name": "Sunset",
-    "groups": { "living-room": "warm", "bedroom": "warm" },
+    "devices": { "bed-lamp": "warm" },
+    "groups": { "living-room": "warm" },
     "states": {
       "warm": {
         "on": true,

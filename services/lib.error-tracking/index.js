@@ -1,4 +1,5 @@
 const { send } = require("micro");
+const os = require("os");
 
 module.exports = (env) => {
   ["NODE_ENV", "npm_package_name", "SENTRY_DSN"].forEach((key) => {
@@ -9,6 +10,7 @@ module.exports = (env) => {
   Sentry.init({
     dsn: env.SENTRY_DSN,
     tracesSampleRate: 1.0,
+    serverName: os.hostname(),
     environment: env.NODE_ENV,
   });
 

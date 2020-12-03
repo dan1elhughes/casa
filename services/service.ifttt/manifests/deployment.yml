@@ -30,4 +30,6 @@ spec:
             - configMapRef:
                 name: config-node-env
             - secretRef:
+                name: secrets-error-tracking
+            - secretRef:
                 name: secrets-ifttt

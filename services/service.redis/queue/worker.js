@@ -1,5 +1,3 @@
-const errorTracking = require("@casa/lib-error-tracking");
-
 const RSMQWorker = require("rsmq-worker");
 const rsmq = require("./rsmq");
 
@@ -20,7 +18,6 @@ module.exports.instance = async () => {
     instance = new RSMQWorker(QUEUE_NAME, {
       rsmq: rsmqInstance.rsmq,
       interval,
-      maxReceiveCount: 3,
     });
 
     instance.on("message", async (msg, done, id) => {
@@ -31,22 +28,20 @@ module.exports.instance = async () => {
         "device-manager": SERVICE_DEVICE_MANAGER_URL,
       }[destination];
 
-      try {
-        if (service) {
-          const headers = { "x-trace-id": traceId };
-          await got.put(`${service}/event`, { headers, json: body }).json();
-        } else {
-          throw new Error(`Unconfigured destination ${destination}`);
-        }
-      } catch (e) {
-        errorTracking.captureException(e);
-      } finally {
-        done();
+      if (service) {
+        const headers = { "x-trace-id": traceId };
+        await got.put(`${service}/event`, { headers, json: body }).json();
+      } else {
+        console.log(`Unconfigured destination ${destination}`);
       }
+
+      done();
     });
 
     instance.on("ready", () => console.log("Ready!"));
-    instance.on("error", errorTracking.captureException);
+    instance.on("error", (err, msg) =>
+      console.log("error", err.message, msg.id)
+    );
     instance.on("exceeded", (msg) => console.log("exceeded", msg.id));
     instance.on("timeout", (msg) => console.log("timeout", msg.id, msg.rc));
   }

@@ -9,3 +9,4 @@ build-utils/builders/builders
 **/vars/main.yml
 
 .env
+.DS_Store

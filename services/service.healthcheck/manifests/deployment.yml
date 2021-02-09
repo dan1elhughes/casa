@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-healthcheck
+  labels:
+    app: app-healthcheck
+spec:
+  replicas: 2
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: app-healthcheck
+  template:
+    metadata:
+      labels:
+        app: app-healthcheck
+    spec:
+      containers:
+        - name: container-healthcheck
+          image: dan1elhughes/casa-s-healthcheck:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+          envFrom:
+            - configMapRef:
+                name: config-node-env
+            - secretRef:
+                name: secrets-error-tracking
+            - secretRef:
+                name: secrets-healthcheck

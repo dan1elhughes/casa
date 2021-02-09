@@ -1,8 +1,8 @@
+const Healthcheck = require("@casa/lib-healthcheck");
+
 const { parse, subMinutes, isAfter, differenceInSeconds } = require("date-fns");
 const { zonedTimeToUtc, utcToZonedTime } = require("date-fns-tz");
 const TIMEZONE = "Europe/London";
-
-const { SERVICE_DEVICE_MANAGER_URL } = process.env;
 
 const TIME_MATCH_TOLERANCE_SECONDS = 90;
 
@@ -49,6 +49,9 @@ const shouldTriggerTime = async ({ logger }, triggerTime) => {
 module.exports = async (req, res) => {
   const { logger, got } = req;
 
+  const check = new Healthcheck(req, "scheduler_tick");
+  await check.start();
+
   const triggered = [];
   for (const { scene, at } of schedule) {
     switch (at) {
@@ -61,10 +64,14 @@ module.exports = async (req, res) => {
     }
   }
 
+  const deviceManagerURL = req.getServiceURL("service.device-manager");
+
   for (const scene of triggered) {
     logger.debug(`Triggered: ${scene}`);
-    await got.put(`${SERVICE_DEVICE_MANAGER_URL}/scenes/${scene}`);
+    await got.put(`${deviceManagerURL}/scenes/${scene}`);
   }
+
+  await check.finish();
 
   return { triggered };
 };

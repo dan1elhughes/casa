@@ -11,10 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@casa/lib-logger": "1.0.0",
-    "@casa/lib-trace": "1.0.0",
+    "@casa/lib-common-middleware": "1.0.0",
     "micro": "^9.3.4",
-    "micro-mw": "^1.3.0",
     "microrouter": "^3.1.3"
   },
   "devDependencies": {

@@ -3,12 +3,8 @@ process.env.NODE_ENV !== "production" && require("dotenv").config();
 assert(process.env.REDIS_URL);
 assert(process.env.SERVICE_DEVICE_MANAGER_URL);
 
-const { createSet, applyMiddleware } = require("micro-mw");
-const traceMW = require("@casa/lib-trace")(process.env);
-const loggerMW = require("@casa/lib-logger")(process.env);
-const errorMW = require("@casa/lib-error-tracking")(process.env);
-createSet("default", [traceMW, loggerMW]);
-createSet("errorHandler", [errorMW]);
+const registerMiddleware = require("@casa/lib-common-middleware");
+const applyMiddleware = registerMiddleware(process.env);
 
 const rsmq = require("./queue/rsmq");
 rsmq.configure(process.env.REDIS_URL);

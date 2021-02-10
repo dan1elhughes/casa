@@ -1,5 +1,3 @@
-const { SERVICE_SLACK_URL } = process.env;
-
 const confGroups = require("../config/groups.json");
 const confDevices = require("../config/devices.json");
 const confScenes = require("../config/scenes.json");
@@ -14,7 +12,7 @@ const finishSpan = (span) => (value) => {
 };
 
 module.exports = async (req, res) => {
-  const { got, Sentry } = req;
+  const { got, Sentry, getServiceURL } = req;
   const { id } = req.params;
   const scene = confScenes[id];
   if (!scene) return send(res, 404);
@@ -59,8 +57,10 @@ module.exports = async (req, res) => {
 
   transaction.finish();
 
+  const slackService = getServiceURL("service.slack");
+
   // Not awaiting this as it's fine to happen after returning.
-  got.post(`${SERVICE_SLACK_URL}/post-message`, {
+  got.post(`${slackService}/post-message`, {
     json: { text: `Activated scene: ${scene.name}` },
   });
 

@@ -1,7 +1,6 @@
 const assert = require("assert");
 process.env.NODE_ENV !== "production" && require("dotenv").config();
 assert(process.env.REDIS_URL);
-assert(process.env.SERVICE_DEVICE_MANAGER_URL);
 
 const registerMiddleware = require("@casa/lib-common-middleware");
 const applyMiddleware = registerMiddleware(process.env);

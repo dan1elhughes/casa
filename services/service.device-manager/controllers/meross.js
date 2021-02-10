@@ -1,23 +1,23 @@
-const { SERVICE_MEROSS_URL } = process.env;
-
 module.exports = {
   async read(req, device) {
-    const { got } = req;
+    const { got, getServiceURL } = req;
     const { id, channel } = device.params;
 
     const channelParameter = channel ? `/${channel}` : "";
+    const merossService = getServiceURL("service.meross");
 
-    return got(`${SERVICE_MEROSS_URL}/devices/${id}${channelParameter}`).json();
+    return got(`${merossService}/devices/${id}${channelParameter}`).json();
   },
 
   async write(req, device, state) {
-    const { got } = req;
+    const { got, getServiceURL } = req;
     const { id, channel } = device.params;
 
     const channelParameter = channel ? `/${channel}` : "";
+    const merossService = getServiceURL("service.meross");
 
     return got
-      .put(`${SERVICE_MEROSS_URL}/devices/${id}${channelParameter}`, {
+      .put(`${merossService}/devices/${id}${channelParameter}`, {
         json: { state },
       })
       .json();

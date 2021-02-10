@@ -1,12 +1,13 @@
-const { SERVICE_REDIS_URL, NODE_ENV } = process.env;
+const { NODE_ENV } = process.env;
 
 module.exports.locked = async (req, id) => {
   if (NODE_ENV !== "production") return false;
 
-  const { got, logger } = req;
+  const { got, logger, getServiceURL } = req;
+  const redisService = getServiceURL("service.redis");
 
   try {
-    await got(`${SERVICE_REDIS_URL}/hash/get/locks/${id}`);
+    await got(`${redisService}/hash/get/locks/${id}`);
     logger.debug(`Device is locked: ${id}`);
     return true;
   } catch (e) {

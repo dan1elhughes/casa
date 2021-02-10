@@ -3,7 +3,6 @@ const rsmq = require("./rsmq");
 
 const { QUEUE_NAME } = require("./constants");
 
-const { SERVICE_DEVICE_MANAGER_URL } = process.env;
 const got = require("got");
 
 let instance;
@@ -25,7 +24,7 @@ module.exports.instance = async () => {
       const { destination, body, traceId } = content;
 
       let service = {
-        "device-manager": SERVICE_DEVICE_MANAGER_URL,
+        "device-manager": getServiceURL("service.device-manager"),
       }[destination];
 
       if (service) {

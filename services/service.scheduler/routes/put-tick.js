@@ -49,7 +49,7 @@ const shouldTriggerTime = async ({ logger }, triggerTime) => {
 module.exports = async (req, res) => {
   const { logger, got } = req;
 
-  const check = new Healthcheck(req, "scheduler_tick");
+  const check = new Healthcheck(req, "scheduler_tick", "* * * * *");
   await check.start();
 
   const triggered = [];

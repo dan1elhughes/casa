@@ -1,13 +1,8 @@
-const { json } = require("micro");
-
-const { getHealthcheckURL } = require("./helpers");
-
 module.exports = async (req, res) => {
   const { got } = req;
-  const body = await json(req);
-  const { name } = body;
+  const { token } = req.params;
 
-  const url = getHealthcheckURL(name);
+  const url = `https://hc-ping.com/${token}`;
 
   await got.post(url, {
     timeout: 1000,

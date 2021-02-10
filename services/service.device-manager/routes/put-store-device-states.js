@@ -1,3 +1,5 @@
+const Healthcheck = require("@casa/lib-healthcheck");
+
 const controllers = require("../controllers");
 
 const devices = require("../config/devices.json");
@@ -12,11 +14,18 @@ const { send, json } = require("micro");
 
 module.exports = async (req, res) => {
   const { got, getServiceURL } = req;
+
+  const check = new Healthcheck(req, "store_device_states", "* * * * *");
+  await check.start();
+
   const devices = await getDevices(req, res);
 
   const redisService = getServiceURL("service.redis");
   await got.put(`${redisService}/set/device-data`, {
     json: { devices, groups, scenes },
   });
+
+  await check.finish();
+
   return { ok: true };
 };

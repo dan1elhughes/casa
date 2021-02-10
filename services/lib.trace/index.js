@@ -29,6 +29,9 @@ module.exports = (env) => {
     const headers = {
       [TRACE_HEADER_KEY]: traceId,
       [REQUEST_SOURCE_KEY]: env.npm_package_name,
+      "user-agent": `${os.hostname()}/${env.npm_package_name} (${
+        env.NODE_ENV
+      })`,
     };
 
     req.got = got.extend({ headers });

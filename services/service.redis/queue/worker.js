@@ -23,8 +23,9 @@ module.exports.instance = async () => {
       const content = JSON.parse(msg);
       const { destination, body, traceId } = content;
 
+      // CRUFT!
       let service = {
-        "device-manager": getServiceURL("service.device-manager"),
+        "device-manager": `http://service-device-manager.default.svc.cluster.local:3000`,
       }[destination];
 
       if (service) {

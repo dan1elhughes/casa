@@ -14,6 +14,7 @@ module.exports = applyMiddleware(
     get("/healthz", () => ({ ok: true })),
 
     put("/start", putStart),
-    put("/finish", putFinish)
+    put("/finish", putFinish),
+    put("/fail", () => ({ ok: true })) // TODO: This!
   )
 );

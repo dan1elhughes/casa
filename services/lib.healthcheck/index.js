@@ -12,21 +12,20 @@ module.exports = class Healthcheck {
     });
   }
 
-  stop() {
-    return this.status(0);
+  async stop() {
+    return this.finish();
   }
 
-  finish() {
-    return this.status(0);
-  }
-
-  fail() {
-    return this.status(1);
-  }
-
-  status(exitCode) {
+  async finish() {
     const { got, url, name } = this;
-    return got.put(url + "/" + exitCode, {
+    return got.put(url + "/finish", {
+      json: { name },
+    });
+  }
+
+  async fail() {
+    const { got, url, name } = this;
+    return got.put(url + "/fail", {
       json: { name },
     });
   }

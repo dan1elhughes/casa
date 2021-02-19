@@ -4,6 +4,11 @@
     "controller": "hue",
     "params": { "id": "1" }
   },
+  "kitchen-lights": {
+    "name": "Kitchen lights",
+    "controller": "meross",
+    "params": { "id": "19010823789142251a1334298f146aa0" }
+  },
   "living-room-lamp": {
     "name": "Living room lamp",
     "controller": "hue",

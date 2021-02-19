@@ -1,7 +1,11 @@
 {
   "everything-off": {
     "name": "Everything off",
-    "groups": { "living-room": "off", "bedroom": "off" },
+    "groups": {
+      "bedroom": "off",
+      "kitchen": "off",
+      "living-room": "off"
+    },
     "states": {
       "off": {
         "on": false
@@ -22,26 +26,18 @@
   "sunset": {
     "name": "Sunset",
     "devices": { "bed-lamp": "warm" },
-    "groups": { "living-room": "warm" },
+    "groups": {
+      "kitchen": "on",
+      "living-room": "warm"
+    },
     "states": {
       "warm": {
         "on": true,
         "bri": 254,
         "ct": 500
-      }
-    }
-  },
-  "bedroom": {
-    "name": "Bedroom",
-    "groups": { "living-room": "off", "bedroom": "dim-light" },
-    "states": {
-      "off": {
-        "on": false
       },
-      "dim-light": {
-        "on": true,
-        "bri": 150,
-        "ct": 500
+      "on": {
+        "on": true
       }
     }
   },

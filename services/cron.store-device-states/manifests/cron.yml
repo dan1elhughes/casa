@@ -16,5 +16,5 @@ spec:
               args:
                 - /bin/sh
                 - -ec
-                - curl --fail -sSL -X PUT http://service-device-manager.default.svc.cluster.local:3000/store-device-states
+                - curl --verbose -sSL -X PUT http://service-device-manager.default.svc.cluster.local:3000/store-device-states
           restartPolicy: Never

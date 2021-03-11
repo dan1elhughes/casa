@@ -32,7 +32,8 @@ module.exports = async (req, res) => {
 
   // Register than we've started the job, and return the token for
   // lib.healthcheck to call back with when the job finishes.
-  await got.post(rsp.ping_url + "/start", {
+  // Not awaiting here, as we just fire and forget.
+  got.post(ping_url + "/start", {
     timeout: 5000,
     retry: 5,
   });

@@ -4,7 +4,8 @@ module.exports = async (req, res) => {
 
   const url = `https://hc-ping.com/${token}`;
 
-  await got.post(url, {
+  // Not awaiting here, as we just fire and forget.
+  got.post(url, {
     timeout: 5000,
     retry: 5,
   });

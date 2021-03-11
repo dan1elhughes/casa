@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
           name,
           schedule,
 
-          grace: 120,
+          grace: 300,
           channels: "*",
           unique: ["name"],
         },

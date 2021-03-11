@@ -11,24 +11,33 @@ module.exports = async (req, res) => {
 
   const headers = { "X-Api-Key": HEALTHCHECK_API_KEY };
 
-  // Create or find the healthcheck
-  const rsp = await got
-    .post("https://healthchecks.io/api/v1/checks/", {
-      headers,
-      json: {
-        name,
-        schedule,
+  let token = "";
+  let ping_url = "";
 
-        grace: 120,
-        channels: "*",
-        unique: ["name"],
-      },
-    })
-    .json();
+  try {
+    // Create or find the healthcheck
+    const rsp = await got
+      .post("https://healthchecks.io/api/v1/checks/", {
+        headers,
+        json: {
+          name,
+          schedule,
 
-  // Use the healthcheck ID as our opaque token.
-  // https://hc-ping.com/{id}
-  const token = rsp.ping_url.split("/").pop();
+          grace: 120,
+          channels: "*",
+          unique: ["name"],
+        },
+      })
+      .json();
+
+    // Use the healthcheck ID as our opaque token.
+    // https://hc-ping.com/{id}
+    token = rsp.ping_url.split("/").pop();
+    ping_url = rsp.ping_url;
+  } catch (e) {
+    console.error(e);
+    return { token: "_" };
+  }
 
   // Register than we've started the job, and return the token for
   // lib.healthcheck to call back with when the job finishes.

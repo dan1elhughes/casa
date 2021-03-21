@@ -1,6 +1,7 @@
 /infrastructure/kubeconfig
 secrets.yml
 /secrets
+/.sentryclirc
 
 node_modules
 __pycache__

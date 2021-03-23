@@ -1,5 +1,6 @@
 {
   "bedroom": ["bed-lamp", "desk-lamp"],
   "kitchen": ["kitchen-lights"],
-  "living-room": ["living-room-lamp", "living-room-shelf"]
+  "living-room": ["living-room-lamp", "living-room-shelf"],
+  "office": ["office-lamp"]
 }

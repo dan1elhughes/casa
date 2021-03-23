@@ -47,5 +47,12 @@
       "id": "1911115584535990804948e1e9115f50",
       "channel": 4
     }
+  },
+  "office-lamp": {
+    "name": "Office lamp",
+    "controller": "meross",
+    "params": {
+      "id": "19121877533782251h2848e1e913e310"
+    }
   }
 }

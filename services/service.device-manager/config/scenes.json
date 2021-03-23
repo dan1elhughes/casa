@@ -4,6 +4,7 @@
     "groups": {
       "bedroom": "off",
       "kitchen": "off",
+      "office": "off",
       "living-room": "off"
     },
     "states": {
@@ -28,6 +29,7 @@
     "devices": { "bed-lamp": "warm" },
     "groups": {
       "kitchen": "on",
+      "office": "on",
       "living-room": "warm"
     },
     "states": {
@@ -44,7 +46,10 @@
   "bedside": {
     "name": "Bedside",
     "devices": { "desk-lamp": "off" },
-    "groups": { "living-room": "off" },
+    "groups": {
+      "living-room": "off",
+      "office": "off"
+    },
     "states": {
       "off": {
         "on": false

@@ -1,6 +1,4 @@
 const devices = require("../config/devices.json");
-// const groups = require('../config/groups.json')
-// const themes = require('../config/themes.json')
 
 const controllers = require("../controllers");
 

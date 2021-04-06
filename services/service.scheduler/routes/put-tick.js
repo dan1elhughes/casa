@@ -68,6 +68,7 @@ module.exports = async (req, res) => {
         if (await shouldTriggerDateTime(req, endOfToday())) {
           triggered.push(scene);
         }
+        break;
       default:
         if (await shouldTriggerTime(req, at)) {
           triggered.push(scene);

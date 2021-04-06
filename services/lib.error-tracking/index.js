@@ -6,19 +6,26 @@ module.exports = (env) => {
     if (!env[key]) throw new Error(`Missing argument: ${key}`);
   });
 
-  const Sentry = require("@sentry/node");
-  Sentry.init({
-    dsn: env.SENTRY_DSN,
-    tracesSampleRate: 1.0,
-    serverName: os.hostname(),
-    environment: env.NODE_ENV,
-  });
+  const isProd = env.NODE_ENV === "production";
 
-  Sentry.setTag("service", env.npm_package_name);
+  const Sentry = require("@sentry/node");
+
+  if (isProd) {
+    Sentry.init({
+      dsn: env.SENTRY_DSN,
+      tracesSampleRate: 1.0,
+      serverName: os.hostname(),
+      environment: env.NODE_ENV,
+    });
+
+    Sentry.setTag("service", env.npm_package_name);
+  }
 
   // Adapted from https://github.com/mhamann/micro-mw/blob/master/lib/errorHandler.js
   return function errorCaptureMiddleware(req, res, err) {
-    Sentry.captureException(err);
+    if (isProd) {
+      Sentry.captureException(err);
+    }
 
     send(res, err.statusCode || err.status || 500, err.body || err.message);
 

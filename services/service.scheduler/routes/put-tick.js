@@ -8,20 +8,13 @@ const TIME_MATCH_TOLERANCE_SECONDS = 90;
 
 const schedule = require("../config/schedule.json");
 
-// Don't wanna publish my home address, but close enough.
-const home = { lat: "51.507351", lng: "-0.127758" };
-const url = `https://api.sunrise-sunset.org/json?lat=${home.lat}&lng=${home.lng}&formatted=0`;
-
-// TODO: Cache this value.
-const getSunset = async (req) => {
-  const { got } = req;
-  const { results } = await got(url).json();
-  return new Date(results.sunset);
-};
-
 const shouldTriggerSunset = async (req) => {
-  const { logger } = req;
-  const triggerAt = await getSunset(req);
+  const { logger, getServiceURL, got } = req;
+
+  const sunsetURL = getServiceURL("service.sunset");
+  const { sunset } = await got(`${sunsetURL}/sunset`).json();
+
+  const triggerAt = new Date(sunset);
   const now = new Date();
   const difference = Math.abs(differenceInSeconds(now, triggerAt));
 

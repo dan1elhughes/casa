@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-img="arm32v7/node:13-slim"
+img="arm32v7/node:14-slim"
 
 svcdir=$(pwd)
 svcimage=$(echo `basename $svcdir` | sed 's/service\./s-/g')

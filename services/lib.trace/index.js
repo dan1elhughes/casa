@@ -7,19 +7,9 @@ const TRACE_HEADER_KEY = "x-trace-id";
 const REQUEST_SOURCE_KEY = "x-request-source";
 
 module.exports = (env) => {
-  ["NODE_ENV", "npm_package_name", "SENTRY_DSN"].forEach((key) => {
+  ["NODE_ENV", "npm_package_name"].forEach((key) => {
     if (!env[key]) throw new Error(`Missing argument: ${key}`);
   });
-
-  const Sentry = require("@sentry/node");
-  Sentry.init({
-    dsn: env.SENTRY_DSN,
-    tracesSampleRate: 1.0,
-    serverName: os.hostname(),
-    environment: env.NODE_ENV,
-  });
-
-  Sentry.setTag("service", env.npm_package_name);
 
   return function traceMiddleware(req, res) {
     const traceId = req.headers[TRACE_HEADER_KEY] || uuid();
@@ -39,8 +29,6 @@ module.exports = (env) => {
     // So that the first request in the chain can access the trace ID
     // even though it wasn't in the request headers.
     req.traceId = traceId;
-
-    req.Sentry = Sentry;
 
     // We also write the header into the response, so we
     // can see what trace to search for when making API

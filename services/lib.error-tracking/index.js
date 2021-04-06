@@ -2,7 +2,7 @@ const { send } = require("micro");
 const os = require("os");
 
 module.exports = (env) => {
-  ["NODE_ENV", "npm_package_name", "SENTRY_DSN"].forEach((key) => {
+  ["NODE_ENV", "npm_package_name"].forEach((key) => {
     if (!env[key]) throw new Error(`Missing argument: ${key}`);
   });
 
@@ -11,6 +11,7 @@ module.exports = (env) => {
   const Sentry = require("@sentry/node");
 
   if (isProd) {
+    assert(env.SENTRY_DSN);
     Sentry.init({
       dsn: env.SENTRY_DSN,
       tracesSampleRate: 1.0,

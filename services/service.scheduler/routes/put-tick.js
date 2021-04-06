@@ -37,7 +37,7 @@ const shouldTriggerDateTime = async ({ logger }, triggerDateTime) => {
   const difference = Math.abs(differenceInSeconds(now, triggerDateTime));
 
   logger.debug(
-    `Time: trigger ${triggerAt}, now ${now}, difference: ${difference}`
+    `Time: trigger ${triggerDateTime}, now ${now}, difference: ${difference}`
   );
 
   return difference <= TIME_MATCH_TOLERANCE_SECONDS;

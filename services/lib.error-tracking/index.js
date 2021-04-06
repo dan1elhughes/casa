@@ -1,5 +1,6 @@
 const { send } = require("micro");
 const os = require("os");
+const assert = require("assert");
 
 module.exports = (env) => {
   ["NODE_ENV", "npm_package_name"].forEach((key) => {

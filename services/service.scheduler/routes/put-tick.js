@@ -1,6 +1,12 @@
 const Healthcheck = require("@casa/lib-healthcheck");
 
-const { parse, subMinutes, isAfter, differenceInSeconds } = require("date-fns");
+const {
+  parse,
+  subMinutes,
+  isAfter,
+  differenceInSeconds,
+  endOfToday,
+} = require("date-fns");
 const { zonedTimeToUtc, utcToZonedTime } = require("date-fns-tz");
 const TIMEZONE = "Europe/London";
 
@@ -25,18 +31,23 @@ const shouldTriggerSunset = async (req) => {
   return difference <= TIME_MATCH_TOLERANCE_SECONDS;
 };
 
-const shouldTriggerTime = async ({ logger }, triggerTime) => {
-  const rawTrigger = parse(triggerTime, "HH:mm", new Date());
-  const triggerAt = zonedTimeToUtc(rawTrigger, TIMEZONE);
+const shouldTriggerDateTime = async ({ logger }, triggerDateTime) => {
   const now = new Date();
 
-  const difference = Math.abs(differenceInSeconds(now, triggerAt));
+  const difference = Math.abs(differenceInSeconds(now, triggerDateTime));
 
   logger.debug(
     `Time: trigger ${triggerAt}, now ${now}, difference: ${difference}`
   );
 
   return difference <= TIME_MATCH_TOLERANCE_SECONDS;
+};
+
+const shouldTriggerTime = async (req, triggerTime) => {
+  const rawTrigger = parse(triggerTime, "HH:mm", new Date());
+  const triggerAt = zonedTimeToUtc(rawTrigger, TIMEZONE);
+
+  return shouldTriggerDateTime(req, triggerAt);
 };
 
 module.exports = async (req, res) => {
@@ -49,10 +60,18 @@ module.exports = async (req, res) => {
   for (const { scene, at } of schedule) {
     switch (at) {
       case "@sunset":
-        if (await shouldTriggerSunset(req)) triggered.push(scene);
+        if (await shouldTriggerSunset(req)) {
+          triggered.push(scene);
+        }
         break;
+      case "00:00":
+        if (await shouldTriggerDateTime(req, endOfToday())) {
+          triggered.push(scene);
+        }
       default:
-        if (await shouldTriggerTime(req, at)) triggered.push(scene);
+        if (await shouldTriggerTime(req, at)) {
+          triggered.push(scene);
+        }
         break;
     }
   }

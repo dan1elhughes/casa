@@ -6,13 +6,8 @@ const controllers = require("../controllers");
 
 const { send, json } = require("micro");
 
-const finishSpan = (span) => (value) => {
-  span.finish();
-  return value;
-};
-
 module.exports = async (req, res) => {
-  const { got, Sentry, getServiceURL } = req;
+  const { got, getServiceURL } = req;
   const { id } = req.params;
   const scene = confScenes[id];
   if (!scene) return send(res, 404);
@@ -31,31 +26,17 @@ module.exports = async (req, res) => {
     }
   }
 
-  const transaction = Sentry.startTransaction({
-    op: "transaction",
-    name: `Scene: ${scene.name}`,
-  });
-
   await Promise.all(
     [...stateIDsByDeviceID].map(([deviceID, stateID]) => {
-      const span = transaction.startChild({
-        op: "write",
-        description: `Write device: ${deviceID}`,
-      });
-
       const device = confDevices[deviceID];
       if (!device) throw new Error(`Cannot find device ${deviceID}`);
 
       const state = states[stateID];
       if (!state) throw new Error(`${deviceID} can't find state ${stateID}`);
 
-      return controllers[device.controller]
-        .write(req, device, state)
-        .then(finishSpan(span));
+      return controllers[device.controller].write(req, device, state);
     })
   );
-
-  transaction.finish();
 
   const slackService = getServiceURL("service.slack");
 

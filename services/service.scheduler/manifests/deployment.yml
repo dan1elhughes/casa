@@ -28,8 +28,6 @@ spec:
               port: 3000
           envFrom:
             - configMapRef:
-                name: config-service-urls
-            - configMapRef:
                 name: config-node-env
             - secretRef:
                 name: secrets-error-tracking

@@ -1,5 +1,0 @@
----
-- hosts: builders
-  become: yes
-  roles:
-    - builder

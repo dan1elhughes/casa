@@ -1,4 +1,0 @@
-# {{ ansible_managed }}
-deb http://mirror.ox.ac.uk/sites/archive.raspbian.org/archive/raspbian buster main contrib non-free rpi
-# Raspbian default:
-# deb http://raspbian.raspberrypi.org/raspbian/ buster main contrib non-free rpi
